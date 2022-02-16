@@ -2,31 +2,38 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import ListItem from '@mui/material/ListItem';
+import { useParams } from "react-router-dom";
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from "react-router-dom";
-import MailIcon from '@mui/icons-material/Mail';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import DriveEtaIcon from '@mui/icons-material/DriveEta';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 
 const drawerWidth = 240;
 
 const Navbar = () => {
+    const [menu, setMenu] = React.useState("Home");
     let navigate = useNavigate();
+    const listMenuTitle =['Home', 'Booking',]
     
 function changePage(page) {
+    setMenu(page)
     switch (page) {
       case "Booking":
-        navigate("/booking");
+        navigate("booking");
         break;
       case "Home":
-        navigate("/home");
+        navigate("home");
+        
         break;
       case "ยอดรวมรายรับ":
         navigate("allget");
@@ -35,7 +42,9 @@ function changePage(page) {
         navigate("/");
     }
   }
+  let params = useParams();
     return (
+     
         <Box sx={{ display: 'flex' }}>
             <AppBar color=''
         position="fixed"
@@ -45,13 +54,13 @@ function changePage(page) {
 
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            CarQ
+           {menu}
           </Typography>
 
 
           <Box sx={{ flexGrow: 1 }}>
 
-            <IconButton
+            {/* <IconButton
               edge="end"
               size="large"
               aria-label="account of current user"
@@ -59,9 +68,9 @@ function changePage(page) {
               aria-haspopup="true"
               // onClick={handleMenu}
               color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            > */}
+              {/* <AccountCircle />
+            </IconButton> */}
           </Box>
 
         </Toolbar>
@@ -79,13 +88,20 @@ function changePage(page) {
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
+        <Toolbar>
+        <Stack direction="row" spacing={2} sx={{pr:6,alignItems:"center"}}>
+        <DriveEtaIcon sx={{ fontSize: 40 }} ></DriveEtaIcon>
+        <Typography>CarQ</Typography>
+        </Stack>
+        </Toolbar>
+      
+
         <Divider />
         <List>
-          {['Home', 'Booking', 'Send email', 'Drafts'].map((text, index) => (
+          {listMenuTitle.map((text, index) => (
             <ListItem button key={text}    onClick={() => changePage(text)}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index  === 0 ? <HomeIcon /> : <EventNoteIcon />}
              
               </ListItemIcon>
               <ListItemText primary={text} />
