@@ -33,10 +33,6 @@ function changePage(page) {
         break;
       case "Home":
         navigate("home");
-        
-        break;
-      case "ยอดรวมรายรับ":
-        navigate("allget");
         break;
       default:
         navigate("/");
@@ -53,7 +49,7 @@ function changePage(page) {
 
 
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography  variant="h6" noWrap component="div">
            {menu}
           </Typography>
 
@@ -83,6 +79,8 @@ function changePage(page) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            bgcolor:"#151357",
+            color:"white"
           },
         }}
         variant="permanent"
@@ -101,7 +99,7 @@ function changePage(page) {
           {listMenuTitle.map((text, index) => (
             <ListItem button key={text}    onClick={() => changePage(text)}>
               <ListItemIcon>
-                {index  === 0 ? <HomeIcon /> : <EventNoteIcon />}
+                {index  === 0 ? <HomeIcon sx={{color:"white"}}/> : <EventNoteIcon sx={{color:"white"}}/>}
              
               </ListItemIcon>
               <ListItemText primary={text} />
