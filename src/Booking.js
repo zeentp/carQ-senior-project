@@ -12,7 +12,21 @@ import { Typography } from "@mui/material";
 
 export default function Booking() {
   const [brands, setBrand] = React.useState("");
+  const [phoneNumber, setPhoneNumber] = React.useState("");
 
+  const handlePhoneChange = (event) =>{
+    var val = event.target.value.replace(/[^0-9]/g, '');
+    if (val[0] === '0') {
+      let a = val
+      a = val.slice(0,3)
+      a += (val.length > 3 ? "-" + val.slice(3,6) : '')
+      a += (val.length > 6 ? "-" + val.slice(6) : '')
+      val = a
+    }else{
+      val = ''
+    }
+    setPhoneNumber(val)
+  };
   const handleChange = (event) => {
     setBrand(event.target.value);
   };
@@ -45,7 +59,7 @@ export default function Booking() {
         <Grid item xs={6}>
           <TextField
             id="standard-multiline-flexible"
-            label="Plate"
+            label="Plate Number"
             fullWidth
             maxRows={4}
             // value={value}
@@ -65,6 +79,29 @@ export default function Booking() {
           />
         </Grid>
         
+        
+        <Grid item xs={6}>
+          <TextField
+            id="standard-multiline-flexible"
+            label="Email"
+            fullWidth
+            maxRows={4}
+            // value={value}
+            // onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            id="standard-multiline-flexible"
+            label="TEL"
+            fullWidth
+            maxRows={4}
+            inputProps={{ maxLength: 12 }}
+            // value={value}
+            onChange={handlePhoneChange}
+            value={phoneNumber}
+          />
+        </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Car brand</InputLabel>
@@ -85,14 +122,14 @@ export default function Booking() {
         <Grid item xs={6}>
           <TextField
             id="standard-multiline-flexible"
-            label="Issue"
+            label="Description"
             fullWidth
             maxRows={4}
             // value={value}
             // onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <TextField
             // sx={{ mt: "45px", width: 320 }}
             id="standard-multiline-flexible"
@@ -102,7 +139,7 @@ export default function Booking() {
             // value={value}
             // onChange={handleChange}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} container spacing={2} justifyContent="flex-end">
           <Stack direction="row" spacing={2} sx={{ pt: 2 }}>
             <Button color="inherit" variant="contained">
