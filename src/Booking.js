@@ -14,18 +14,18 @@ export default function Booking() {
   const [brands, setBrand] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
 
-  const handlePhoneChange = (event) =>{
-    var val = event.target.value.replace(/[^0-9]/g, '');
-    if (val[0] === '0') {
-      let a = val
-      a = val.slice(0,3)
-      a += (val.length > 3 ? "-" + val.slice(3,6) : '')
-      a += (val.length > 6 ? "-" + val.slice(6) : '')
-      val = a
-    }else{
-      val = ''
+  const handlePhoneChange = (event) => {
+    var val = event.target.value.replace(/[^0-9]/g, "");
+    if (val[0] === "0") {
+      let a = val;
+      a = val.slice(0, 3);
+      a += val.length > 3 ? "-" + val.slice(3, 6) : "";
+      a += val.length > 6 ? "-" + val.slice(6) : "";
+      val = a;
+    } else {
+      val = "";
     }
-    setPhoneNumber(val)
+    setPhoneNumber(val);
   };
   const handleChange = (event) => {
     setBrand(event.target.value);
@@ -59,30 +59,6 @@ export default function Booking() {
         <Grid item xs={6}>
           <TextField
             id="standard-multiline-flexible"
-            label="Plate Number"
-            fullWidth
-            maxRows={4}
-            // value={value}
-            // onChange={handleChange}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            id="date"
-            label="Date"
-            type="date"
-            fullWidth
-            defaultValue="2022-02-20"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        
-        
-        <Grid item xs={6}>
-          <TextField
-            id="standard-multiline-flexible"
             label="Email"
             fullWidth
             maxRows={4}
@@ -103,6 +79,16 @@ export default function Booking() {
           />
         </Grid>
         <Grid item xs={6}>
+          <TextField
+            id="standard-multiline-flexible"
+            label="Plate Number"
+            fullWidth
+            maxRows={4}
+            // value={value}
+            // onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={6}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Car brand</InputLabel>
             <Select
@@ -118,6 +104,22 @@ export default function Booking() {
               <MenuItem value={"Toyoya"}>Nissan</MenuItem>
             </Select>
           </FormControl>
+        </Grid>
+  
+
+        
+        <Grid item xs={6}>
+          <TextField
+            id="datetime-local"
+            fullWidth
+            label="Date-Time"
+            type="datetime-local"
+            defaultValue="2022-05-24T10:30"
+            // className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
         </Grid>
         <Grid item xs={6}>
           <TextField

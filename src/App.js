@@ -5,6 +5,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import Home from "./Home";
 import Booking from "./Booking";
 import Navbar from './Navbar';
+import Test from './Test';
+
 
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="booking" element={<Booking/>} />
         <Route path="home" element={<Home/>} />
+        <Route path="test" element={<Test/>} />
+
         {/* <Route path=":title" element={<Home />} /> */}
 
 
