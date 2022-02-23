@@ -317,8 +317,8 @@ export default function EnhancedTable() {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
-    <Box sx={{ width: "80%", pl: 40 }}>
-      <Paper sx={{ width: "80%", mb: 2 }}>
+    <Box sx={{ width: "80%",pl:40 }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
