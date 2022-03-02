@@ -11,8 +11,17 @@ import Stack from "@mui/material/Stack";
 import { Typography } from "@mui/material";
 
 export default function Booking() {
-  const [brands, setBrand] = React.useState("");
-  const [phoneNumber, setPhoneNumber] = React.useState("");
+  const [fname, setFname] = React.useState('');
+  const [Lname, setLname] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
+  const [plateNumber, setPlateNumber] = React.useState('');
+  const [carbrand, setCarBrand] = React.useState('');
+  const [dateTime, setDateTime] = React.useState('');
+  const [description, setDescription] = React.useState('');
+
+
+
 
   const handlePhoneChange = (event) => {
     var val = event.target.value.replace(/[^0-9]/g, "");
@@ -27,14 +36,29 @@ export default function Booking() {
     }
     setPhoneNumber(val);
   };
-  const handleChange = (event) => {
-    setBrand(event.target.value);
+  const handleSubmit = (event) => {
+    alert('hello')
+    console.log(fname)
+    console.log(fname)
+    console.log(email)
+    console.log(phoneNumber)
+    console.log(plateNumber)
+    console.log(description)
+    console.log(dateTime)
+
+
+
+
+
+    event.preventDefault();
+    
   };
   return (
     <Box sx={{ flexGrow: 1, pl: 40, pr: 10 }}>
       <Typography variant="h5" noWrap component="div">
         Make new appointment
       </Typography>
+      <Box component="form" noValidate onSubmit={handleSubmit}>
       <Grid sx={{ pt: 3 }} container spacing={3}>
         <Grid item xs={6}>
           <TextField
@@ -43,7 +67,7 @@ export default function Booking() {
             fullWidth
             maxRows={4}
             // value={value}
-            // onChange={handleChange}
+            onChange={(e) => setFname(e.target.value)}
           />
         </Grid>
         <Grid item xs={6}>
@@ -52,8 +76,9 @@ export default function Booking() {
             label="Last Name"
             fullWidth
             maxRows={4}
-            // value={value}
-            // onChange={handleChange}
+            onChange={(e) => setLname(e.target.value)}
+          // value={value}
+          // onChange={handleChange}
           />
         </Grid>
         <Grid item xs={6}>
@@ -62,8 +87,9 @@ export default function Booking() {
             label="Email"
             fullWidth
             maxRows={4}
-            // value={value}
-            // onChange={handleChange}
+            onChange={(e) => setEmail(e.target.value)}
+          // value={value}
+          // onChange={handleChange}
           />
         </Grid>
         <Grid item xs={6}>
@@ -84,8 +110,8 @@ export default function Booking() {
             label="Plate Number"
             fullWidth
             maxRows={4}
-            // value={value}
-            // onChange={handleChange}
+            onChange={(e) => setPlateNumber(e.target.value)}
+          // value={value}
           />
         </Grid>
         <Grid item xs={6}>
@@ -94,9 +120,11 @@ export default function Booking() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={brands}
+              value={carbrand}
               label="car brand"
-              onChange={handleChange}
+              // onChange={handleChange}
+              onChange={(e) => setCarBrand(e.target.value)}
+
             >
               <MenuItem value={"Honda"}>Honda</MenuItem>
               <MenuItem value={"Yamaha"}>Yamaha</MenuItem>
@@ -105,9 +133,6 @@ export default function Booking() {
             </Select>
           </FormControl>
         </Grid>
-  
-
-        
         <Grid item xs={6}>
           <TextField
             id="datetime-local"
@@ -115,10 +140,11 @@ export default function Booking() {
             label="Date-Time"
             type="datetime-local"
             defaultValue="2022-05-24T10:30"
-            // className={classes.textField}
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={(e) => setDateTime(e.target.value)}
+
           />
         </Grid>
         <Grid item xs={6}>
@@ -127,30 +153,21 @@ export default function Booking() {
             label="Description"
             fullWidth
             maxRows={4}
-            // value={value}
-            // onChange={handleChange}
+            onChange={(e) => setDescription(e.target.value)}
           />
+          
         </Grid>
-        {/* <Grid item xs={12}>
-          <TextField
-            // sx={{ mt: "45px", width: 320 }}
-            id="standard-multiline-flexible"
-            label="Description"
-            fullWidth
-            maxRows={4}
-            // value={value}
-            // onChange={handleChange}
-          />
-        </Grid> */}
+        
         <Grid item xs={12} container spacing={2} justifyContent="flex-end">
           <Stack direction="row" spacing={2} sx={{ pt: 2 }}>
             <Button color="inherit" variant="contained">
               Cancel
             </Button>
-            <Button variant="contained">Confirm</Button>
+            <Button type="submit" variant="contained">Confirm</Button>
           </Stack>
         </Grid>
       </Grid>
+      </Box>
     </Box>
   );
 }
