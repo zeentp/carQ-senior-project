@@ -10,6 +10,8 @@ import InputLabel from "@mui/material/InputLabel";
 import Stack from "@mui/material/Stack";
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+// import Timestamp = firebase.firestore.TimeStamp;   
+
 export default function Booking() {
   const [fname, setFname] = React.useState('');
   const [lname, setLname] = React.useState('');
@@ -20,15 +22,15 @@ export default function Booking() {
   const [dateTime, setDateTime] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [disableApplyButton, setDisableApplyButton] = React.useState(false);
-
-
+  const axios = require("axios");
+  const url = "http://192.168.1.144:8080";
   useEffect(() => {
-    if (fname !== '' && lname !== '' && email !=='' && phoneNumber.length === 12 && phoneNumber.length !== '' && plateNumber !== '' && carbrand !== null && dateTime !== null && description !== '') {
+    if (fname !== '' && lname !== '' && email !== '' && phoneNumber.length === 12 && phoneNumber.length !== '' && plateNumber !== '' && carbrand !== null && dateTime !== null && description !== '') {
       setDisableApplyButton(false)
     } else {
       setDisableApplyButton(true)
     }
-  }, [fname, lname,email,phoneNumber,plateNumber,carbrand,dateTime,description]);
+  }, [fname, lname, email, phoneNumber, plateNumber, carbrand, dateTime, description]);
 
   const handlePhoneChange = (event) => {
     var val = event.target.value.replace(/[^0-9]/g, "");
@@ -43,18 +45,77 @@ export default function Booking() {
     }
     setPhoneNumber(val);
   };
-  const handleSubmit = (event) => {
-    alert('hello')
-    console.log(fname)
-    console.log(lname)
-    console.log(email)
-    console.log(phoneNumber)
-    console.log(plateNumber)
-    console.log(description)
-    console.log(dateTime)
-    event.preventDefault();
 
-  };
+  const handleSubmit = event => {
+    event.preventDefault();
+    var data1 = {
+      appointment_id: "id",
+      task_id: [
+        "task_id"
+      ],
+      task_id: [
+        "ol11poxwuro7CSGed711th"
+      ],
+      user_id: 'userid',
+      create_at: "d",
+      starts_at: "w",
+      ends_at: "w",
+      plate_no: plateNumber,
+      brand: carbrand,
+      description: description,
+      name: fname + lname,
+      status: "pending",
+      firstName: fname,
+      lastName: lname,
+      telephone: phoneNumber,
+      // email: email,
+      // age: 22,
+    }
+
+    var data2 = {
+      appointment_id: "gnIYRmddOJmdrf70oqwE",
+      task_id: [
+        "ol11poxwuro7CSGed7th"
+      ],
+      user_id: "SxC0e6aMigpdRIP0Uybq",
+      // create_at: {
+      //   seconds: 1647059400,
+      //   nanos: 0
+      // },
+      // starts_at: {
+      //   seconds: 1647059400,
+      //   nanos: 0
+      // },
+      // ends_at: {
+      //   seconds: 1647174600,
+      //   nanos: 0
+      // },
+      plate_no: plateNumber,
+      brand: carbrand,
+      description: description,
+      status: "pending",
+      name: fname + lname,
+    }
+    axios.post(url + "/a/create", data2).then((res) => {
+      console.log(res);
+      console.log(carbrand)
+      // window.location.href = '/booking';
+    });
+  }
+
+  // const handleSubmit = (event) => {
+  //   alert('hello')
+  //   console.log(fname)
+  //   console.log(lname)
+  //   console.log(email)
+  //   console.log(phoneNumber)
+  //   console.log(plateNumber)
+  //   console.log(description)
+  //   console.log(dateTime)
+  //   event.preventDefault();
+
+
+  // }
   return (
     <Box sx={{ flexGrow: 1, pl: 40, pr: 10 }}>
       <Typography variant="h5" noWrap component="div">
@@ -130,8 +191,8 @@ export default function Booking() {
               >
                 <MenuItem value={"Honda"}>Honda</MenuItem>
                 <MenuItem value={"Yamaha"}>Yamaha</MenuItem>
-                <MenuItem value={"Toyoya"}>Toyoya</MenuItem>
-                <MenuItem value={"Toyoya"}>Nissan</MenuItem>
+                <MenuItem value={"Toyota"}>Toyota</MenuItem>
+                <MenuItem value={"Nissan"}>Nissan</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -166,7 +227,7 @@ export default function Booking() {
                 Cancel
               </Button>
               <Button
-              
+
                 type="submit"
                 variant="contained"
                 disabled={disableApplyButton}
