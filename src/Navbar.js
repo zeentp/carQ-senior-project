@@ -40,22 +40,16 @@ function changePage(page) {
   }
   let params = useParams();
     return (
-     
         <Box sx={{ display: 'flex' }}>
             <AppBar color=''
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-
-
         <Toolbar>
           <Typography  variant="h6" noWrap component="div">
            {menu}
           </Typography>
-
-
           <Box sx={{ flexGrow: 1 }}>
-
             {/* <IconButton
               edge="end"
               size="large"

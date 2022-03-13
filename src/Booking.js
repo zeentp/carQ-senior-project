@@ -10,6 +10,8 @@ import InputLabel from "@mui/material/InputLabel";
 import Stack from "@mui/material/Stack";
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Paper } from "@mui/material";
+import Footer from "./Component/Footer";
 export default function Booking() {
   const [fname, setFname] = React.useState('');
   const [lname, setLname] = React.useState('');
@@ -56,11 +58,12 @@ export default function Booking() {
 
   };
   return (
-    <Box sx={{ flexGrow: 1, pl: 40, pr: 10 }}>
+    <Box sx={{ flexGrow: 1, pl: 80, pr: 10}}>
+            <Paper sx={{ pt: 10, p: 5, width: '666px' ,bgcolor:'grey'}}>
       <Typography variant="h5" noWrap component="div">
         Make new appointment
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit}>
+      <Box  component="form" noValidate onSubmit={handleSubmit}>
         <Grid sx={{ pt: 3 }} container spacing={3}>
           <Grid item xs={6}>
             <TextField
@@ -159,7 +162,6 @@ export default function Booking() {
             />
 
           </Grid>
-
           <Grid item xs={12} container spacing={2} justifyContent="flex-end">
             <Stack direction="row" spacing={2} sx={{ pt: 2 }}>
               <Button>
@@ -175,6 +177,8 @@ export default function Booking() {
           </Grid>
         </Grid>
       </Box>
+      </Paper>
     </Box>
+
   );
 }
