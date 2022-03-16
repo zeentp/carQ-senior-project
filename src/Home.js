@@ -9,6 +9,7 @@ import Corousel from './Component/Corousel'
 
 
 
+
 export default function Home() {
     let params = useParams();
 
@@ -17,9 +18,9 @@ export default function Home() {
     }
     return (
         <div>
-            <Box sx={{ pl: 40, pb: 10}}>
+            <Box sx={{ pb: 10}}>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <Typography variant="h1">
                             Car-Q Services
                         </Typography>
@@ -27,7 +28,7 @@ export default function Home() {
                             Reservation Online
                         </Typography>
                     </Grid>
-                    <Grid item xs={6} sx={{ backgroundImage: 'url(https://source.unsplash.com/random)', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px' }}>
+                    <Grid item xs={12} md={6} sx={{ backgroundImage: 'url(https://source.unsplash.com/random)', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '400px' }}>
                         <Button type="submit"
                             onClick={handleOnClick}
                             variant="contained">
@@ -37,10 +38,11 @@ export default function Home() {
                 </Grid>
             </Box>
             <Box sx={{
-                pl: 30, pb: 10,
-            }}>
-                <Grid  container spacing={2}>
-                    <Grid sx={{justifyContent:'center',display:'flex'}} item xs={12}>
+                // pl: 30,
+            }}
+            >
+                <Grid   spacing={2}>
+                    <Grid  item xs={12}>
                         <Corousel></Corousel>
                     </Grid>
                 </Grid>

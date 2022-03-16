@@ -5,11 +5,12 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 export default function footer() {
     return (
         <Box bgcolor='#1a237e' color='white'
-            px={{ xs: 3, sm: 10 }}
-            py={{ xs: 5, sm: 10 }}
-            sx={{mt:'20px'}}
+            // px={{ xs: 3, sm: 10 }}
+            // py={{ xs: 5, sm: 10 }}
+
+            sx={{paddingLeft: 50}}
         >
-            <Container sx={{ mr: 20 }} maxWidth="lg">
+            <Container >
                 <Typography variant="h1" textAlign={'center'}>
                     Our Services
                 </Typography>

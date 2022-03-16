@@ -38,6 +38,7 @@ function changePage(page) {
         navigate("/");
     }
   }
+  
   let params = useParams();
     return (
         <Box sx={{ display: 'flex' }}>

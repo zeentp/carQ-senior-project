@@ -118,50 +118,57 @@ export default function Booking() {
 
   // }
   return (
-    <Box sx={{ flexGrow: 1, pl: 80, pr: 10}}>
-            <Paper sx={{ pt: 10, p: 5, width: '666px' ,bgcolor:'grey'}}>
+    <Box 
+            pl={{sm:30,md: 60 }}
+            // pr={{sm:20,md: 40 }}
+    sx={{ flexGrow: 1,pb:5
+    }}>
+            <Paper container
+            width={{xs:400 ,md:800}}
+            sx={{ pt: 10, p: 5,bgcolor:'grey'}}>
       <Typography variant="h5" noWrap component="div">
         Make new appointment
       </Typography>
       <Box  component="form" noValidate onSubmit={handleSubmit}>
-        <Grid sx={{ pt: 3 }} container spacing={3}>
-          <Grid item xs={6}>
+        <Grid  container spacing={2} sx={{pt:3,
+        '& .MuiTextField-root': { width: '25ch' },
+          '& .MuiSelect-select': { width: '20ch' },
+          // '& .MuiInputBase-input': { width: '25ch' },
+      }}>
+          <Grid item xs={12} md={6
+          }>
             <TextField
               id="standard-multiline-flexible"
               label="First Name"
-              fullWidth
               maxRows={4}
               // value={value}
               onChange={(e) => setFname(e.target.value)}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               id="standard-multiline-flexible"
               label="Last Name"
-              fullWidth
               maxRows={4}
               onChange={(e) => setLname(e.target.value)}
             // value={value}
             // onChange={handleChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               id="standard-multiline-flexible"
               label="Email"
-              fullWidth
               maxRows={4}
               onChange={(e) => setEmail(e.target.value)}
             // value={value}
             // onChange={handleChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               id="standard-multiline-flexible"
               label="TEL"
-              fullWidth
               maxRows={4}
               inputProps={{ maxLength: 12 }}
               // value={value}
@@ -169,18 +176,17 @@ export default function Booking() {
               value={phoneNumber}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               id="standard-multiline-flexible"
               label="Plate Number"
-              fullWidth
               maxRows={4}
               onChange={(e) => setPlateNumber(e.target.value)}
             // value={value}
             />
           </Grid>
-          <Grid item xs={6}>
-            <FormControl fullWidth>
+          <Grid item xs={12} md={6}>
+            <FormControl>
               <InputLabel id="demo-simple-select-label">Car brand</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -198,10 +204,9 @@ export default function Booking() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               id="datetime-local"
-              fullWidth
               label="Date-Time"
               type="datetime-local"
               defaultValue="2022-05-24T10:30"
@@ -212,11 +217,10 @@ export default function Booking() {
 
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <TextField
               id="standard-multiline-flexible"
               label="Description"
-              fullWidth
               maxRows={4}
               onChange={(e) => setDescription(e.target.value)}
             />

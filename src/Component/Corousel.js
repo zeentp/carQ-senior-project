@@ -6,13 +6,18 @@ import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
     corousel: {
-      maxWidth: 1200,
-      [theme.breakpoints.down("md")]: {
-        maxWidth: 600,
-      },
+      width: '100%',
+    //   [theme.breakpoints.down("md")]: {
+    //     width: 900,
+    //   },
+    //   [theme.breakpoints.down("md")]: {
+    //     width: 600,
+    //   },
     },
   }));
 export default function Corousel() {
+    const theme = useTheme();
+  const classes = useStyles();
     var items = [
         {
             name: "Random Name #1",
@@ -28,12 +33,12 @@ export default function Corousel() {
     ]
     return (
         // <div>Corousel</div>
-        <Box>
-            <Carousel sx={{width:1200}}>
+        <Box xs={12}>
+            <Carousel className={classes.corousel} >
             {
                 items.map((item, i) =>
                     // <Typography>{item.name}</Typography>
-                    <img width={1200} height={500} src={item.src} />
+                    <img  className={classes.corousel} height={500} src={item.src} />
                 )
             }
             </Carousel>
