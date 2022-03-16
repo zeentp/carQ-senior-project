@@ -4,7 +4,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 
 export default function footer() {
     return (
-        <Box bgcolor='rgba(52, 52, 52, 0.4)' color='white'
+        <Box bgcolor='#1a237e' color='white'
             px={{ xs: 3, sm: 10 }}
             py={{ xs: 5, sm: 10 }}
             sx={{mt:'20px'}}

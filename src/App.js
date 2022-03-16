@@ -7,7 +7,7 @@ import Booking from "./Booking";
 import Navbar from './Navbar';
 import Test from './Test';
 import Footer from "./Component/Footer";
-
+import Corousel from './Component/Corousel';
 
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
         <Route path="booking" element={<Booking/>} />
         <Route path="home" element={<Home/>} />
         <Route path="test" element={<Test/>} />
+        <Route path="corousel" element={<Corousel/>} />
       </Routes>
     <Footer></Footer>
     </div>

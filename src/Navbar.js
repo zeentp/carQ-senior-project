@@ -45,8 +45,8 @@ function changePage(page) {
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
-        <Toolbar>
-          <Typography  variant="h6" noWrap component="div">
+        <Toolbar sx={{ bgcolor: '#1a237e' }}>
+          <Typography sx={{color:'white'}} variant="h6" noWrap component="div">
            {menu}
           </Typography>
           <Box sx={{ flexGrow: 1 }}>
@@ -85,10 +85,8 @@ function changePage(page) {
         <DriveEtaIcon sx={{ fontSize: 40 }} ></DriveEtaIcon>
         <Typography>CarQ</Typography>
         </Stack>
-        </Toolbar>
-      
-
-        <Divider />
+        </Toolbar>    
+        <Divider sx={{bgcolor:'white'}} />
         <List>
           {listMenuTitle.map((text, index) => (
             <ListItem button key={text}    onClick={() => changePage(text)}>
@@ -100,7 +98,7 @@ function changePage(page) {
             </ListItem>
           ))}
         </List>
-        <Divider />
+        <Divider sx={{bgcolor:'white'}}/>
         {/* <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem button key={text}>

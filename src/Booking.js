@@ -8,12 +8,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Footer from "./Component/Footer";
 // import Timestamp = firebase.firestore.TimeStamp;   
 export default function Booking() {
   const [fname, setFname] = React.useState('');
+  const [lname, setLname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phoneNumber, setPhoneNumber] = React.useState('');
   const [plateNumber, setPlateNumber] = React.useState('');

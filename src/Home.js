@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useParams } from "react-router-dom";
 import Box from '@mui/material/Box';
-import { Typography, Grid, Button, Container } from "@mui/material";
+import { Typography, Grid, Button, Container, Paper } from "@mui/material";
 import Handyman from '@mui/material/ListItemIcon';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import Divider from "@mui/material/Divider";
-
+import Corousel from './Component/Corousel'
 
 
 
@@ -17,8 +17,8 @@ export default function Home() {
     }
     return (
         <div>
-            <Box sx={{ pl: 40, pb: 10, height: '400px' }}>
-                <Grid sx={{ px: '100px' }} container spacing={2}>
+            <Box sx={{ pl: 40, pb: 10}}>
+                <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <Typography variant="h1">
                             Car-Q Services
@@ -37,13 +37,15 @@ export default function Home() {
                 </Grid>
             </Box>
             <Box sx={{
-                pl: 40, pb: 10,
+                pl: 30, pb: 10,
             }}>
-                <Grid sx={{ px: '100px' }} container spacing={2}>
-                    <Grid item xs={12} sx={{ backgroundImage: 'url(https://d2hucwwplm5rxi.cloudfront.net/wp-content/uploads/2021/08/02092918/Repair-or-replace-a-car-Cover-020820211424.jpg)', height: '400px' }}>
+                <Grid  container spacing={2}>
+                    <Grid sx={{justifyContent:'center',display:'flex'}} item xs={12}>
+                        <Corousel></Corousel>
                     </Grid>
                 </Grid>
             </Box>
+            
         </div>
     );
 
