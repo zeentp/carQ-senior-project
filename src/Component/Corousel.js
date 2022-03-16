@@ -2,6 +2,16 @@ import React from 'react'
 import Carousel from 'react-material-ui-carousel'
 import { Typography, Grid, Button, Container, Box, Divider } from "@mui/material";
 import { height } from '@mui/system';
+import { useTheme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+const useStyles = makeStyles((theme) => ({
+    corousel: {
+      maxWidth: 1200,
+      [theme.breakpoints.down("md")]: {
+        maxWidth: 600,
+      },
+    },
+  }));
 export default function Corousel() {
     var items = [
         {
