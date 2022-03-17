@@ -12,6 +12,9 @@ import Footer from "./Component/Footer";
 import Corousel from './Component/Corousel';
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import MainLayout from './Component/MainLayout';
+import SkeletonBooking from './SkeletonBooking';
+import TestHome from './Component/TestHome';
 
 const theme = createTheme(
   {
@@ -31,12 +34,17 @@ function App() {
         <Bar></Bar>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="booking" element={<Booking />} />
+          {/* <Route path="booking" element={<Booking />} /> */}
           <Route path="home" element={<Home />} />
           <Route path="test" element={<Test />} />
           <Route path="corousel" element={<Corousel />} />
+          <Route path="booking" element={<SkeletonBooking />} />
+          <Route path="testHome" element={<TestHome />} />
+
+
+
+
         </Routes>
-        {/* <Footer></Footer> */}
       </ThemeProvider>
     </div>
   );
