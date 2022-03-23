@@ -28,7 +28,7 @@ export default function Corousel() {
         {
             name: "Random Name #2",
             description: "Hello World!",
-            src: 'https://hartmanautomotivelittleton.com/wp-content/uploads/auto-repair-shop-littleton.jpg',
+            src: 'https://www.betterteam.com/images/diesel-mechanic-job-description-4550x2500-20201124.jpeg?crop=2:1,smart&width=1200&dpr=2',
         }
     ]
     return (

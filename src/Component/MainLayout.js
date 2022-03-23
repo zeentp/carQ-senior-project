@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { forwardRef } from "react";
+import "../Css/Card.css"
 import {
   Card,
   CardContent,
@@ -18,9 +19,11 @@ const MainLayout = forwardRef(({ children, isCard, ...others }, ref) => {
     <div>
       {isCard === true ? (
         <Box
-          pl={{ sm: 30, md: 28 }}
+          // pl={{ sm: 30, md: 28 }}
+          pt={3}
           sx={{ display: "flex", justifyContent: "center" }}>
           <Card
+           
             variant="outlined"
             sx={{ border: "1px solid", borderColor: blue[300] + 75 }}>
             {children}
@@ -28,7 +31,8 @@ const MainLayout = forwardRef(({ children, isCard, ...others }, ref) => {
         </Box>
       ) : (
         <Box
-          pl={{ sm: 30, md: 30 }}
+          // pl={{ sm: 30, md: 30 }}
+          pt={0.5}
           //   sx={{ display: "flex", justifyContent: "center" }}
         >
           <Grid>{children}</Grid>

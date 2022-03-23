@@ -1,5 +1,5 @@
 import React from "react";
-import MainLayout from "./Component/MainLayout";
+import MainLayout from "../Component/MainLayout";
 import { useEffect, useState } from "react";
 
 import {
@@ -126,7 +126,7 @@ export default function SkeletonBooking() {
   return (
     <div>
       <MainLayout isCard={true}>
-        <Card>
+        <Card  >
           <CardHeader title="Make Appointment" />
           <CardContent>
             <Box

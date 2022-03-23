@@ -33,13 +33,13 @@ function ResponsiveDrawer(props) {
     setMenu(page);
     switch (page) {
       case "Booking":
+        setMobileOpen(false);
         navigate("booking");
         break;
-      case "Home":
+      case "Home":  
+        setMobileOpen(false);
         navigate("home");
         break;
-
-
       default:
         navigate("/");
     }
