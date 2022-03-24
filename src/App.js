@@ -12,7 +12,7 @@ import MainLayout from './Component/MainLayout';
 import SkeletonBooking from './Page/SkeletonBooking';
 import AppBarClient from './Component/AppBarClient';
 import BookingDate from './Page/BookingDate';
-
+import CheckStatus from './Page/CheckStatus'
 
 const theme = createTheme(
   {
@@ -38,6 +38,8 @@ function App() {
           <Route path="corousel" element={<Corousel />} />
           <Route path="booking" element={<SkeletonBooking />} />
           <Route path="bookingDate" element={<BookingDate />} />
+          <Route path="checkStatus" element={<CheckStatus />} />
+
 
         </Routes>
       </ThemeProvider>

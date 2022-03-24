@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
 
-const pages = ['Home', 'Booking', 'Blog'];
+const pages = ['Home', 'Booking','CheckStatus'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const AppBarClient = () => {
@@ -40,6 +40,9 @@ const AppBarClient = () => {
       case "Home":
         navigate("Home");
         break;
+        case "CheckStatus":
+          navigate("checkStatus");
+          break;
       default:
         navigate("/");
     }

@@ -73,7 +73,7 @@ export default function Home() {
                     </CardActions>
                     <CardContent sx={{ color: 'white' }}>
                       <Typography variant="h5" component="div">
-                        Built for developers
+                        Booking
                       </Typography>
                       <Typography fontSize={14} color={'#7b808b'} variant="h6" component="div">
                       Enable clients to book services and repairs online via your website. New and existing clients have the ease and convenience of booking their car for service/repairs from the comfort of their own home.
@@ -88,7 +88,7 @@ export default function Home() {
                     </CardActions>
                     <CardContent sx={{ color: 'white' }}>
                       <Typography variant="h5" component="div">
-                        Designed to be modern
+                      Booking
                       </Typography>
                       <Typography fontSize={14} color={'#7b808b'} variant="h6" component="div">
                       Clients who book either online, or over the phone will receive confirmation of their booking via email. This confirmation is linked to the users I-phone or android phone calendar, enabling the user to schedule their booking straight to their phone calendar.

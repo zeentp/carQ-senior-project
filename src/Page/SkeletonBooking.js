@@ -127,7 +127,7 @@ export default function SkeletonBooking() {
       lastName: lname,
       email: email,
       telephone: phoneNumber,
-      starts_at: dateTime,
+      // starts_at: dateTime,
     };
     console.log(dateTime);
     console.log(typeof(dateTime));
