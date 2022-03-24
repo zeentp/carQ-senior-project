@@ -75,8 +75,8 @@ export default function Home() {
                       <Typography variant="h5" component="div">
                         Built for developers
                       </Typography>
-                      <Typography color={'#7b808b'} variant="h6" component="div">
-                        Webbee is built to make your life easier. Variables, build tooling, documentation, and reusable components.
+                      <Typography fontSize={14} color={'#7b808b'} variant="h6" component="div">
+                      Enable clients to book services and repairs online via your website. New and existing clients have the ease and convenience of booking their car for service/repairs from the comfort of their own home.
                       </Typography>
                     </CardContent>
                   </Grid>
@@ -90,8 +90,8 @@ export default function Home() {
                       <Typography variant="h5" component="div">
                         Designed to be modern
                       </Typography>
-                      <Typography color={'#7b808b'} variant="h6" component="div">
-                        Designed with the latest design trends in mind. Webbee feels modern, minimal, and beautiful.
+                      <Typography fontSize={14} color={'#7b808b'} variant="h6" component="div">
+                      Clients who book either online, or over the phone will receive confirmation of their booking via email. This confirmation is linked to the users I-phone or android phone calendar, enabling the user to schedule their booking straight to their phone calendar.
                       </Typography>
                     </CardContent>
                   </Grid>
@@ -104,10 +104,10 @@ export default function Home() {
                     </CardActions>
                     <CardContent sx={{ color: '#eeeeef' }}>
                       <Typography variant="h5" component="div">
-                        Documentation for everything
+                        Booking
                       </Typography>
-                      <Typography color={'#7b808b'} variant="h6" component="div">
-                        We've written extensive documentation for components and tools, so you never have to reverse engineer anything.
+                      <Typography fontSize={14} color={'#7b808b'} variant="h6" component="div">
+                      To stay in control of all client interaction, Auto Bookings Online is equip with the ability to remind clients of their service and registration due dates. This is done simply by logging reminder dates
                       </Typography>
                     </CardContent>
                   </Grid>

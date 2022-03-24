@@ -1,7 +1,7 @@
 import React from "react";
 import MainLayout from "../Component/MainLayout";
 import { useEffect, useState } from "react";
-
+import { URL as url } from '../Constants';
 import {
   Card,
   CardContent,
@@ -18,8 +18,30 @@ import {
   Select,
   Button,
 } from "@mui/material";
+import { v4 as uuid } from 'uuid';
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+// import DatePicker from '@mui/lab/DatePicker';
+// function BasicDatePicker() {
+//   const [value, setValue] = React.useState(null);
 
+//   return (
+//     <LocalizationProvider dateAdapter={AdapterDateFns}>
+//       <DatePicker
+//         label="Basic example"
+//         value={value}
+//         onChange={(newValue) => {
+//           setValue(newValue);
+//         }}
+//         renderInput={(params) => <TextField {...params} />}
+//       />
+//     </LocalizationProvider>
+//   );
+// }
 export default function SkeletonBooking() {
+  const appointment_id = uuid();
+  const user_id = uuid();
+
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -30,7 +52,6 @@ export default function SkeletonBooking() {
   const [description, setDescription] = React.useState("");
   const [disableApplyButton, setDisableApplyButton] = React.useState(false);
   const axios = require("axios");
-  const url = "http://192.168.1.144:8080";
   useEffect(() => {
     if (
       fname !== "" &&
@@ -95,31 +116,29 @@ export default function SkeletonBooking() {
     };
 
     var data2 = {
-      appointment_id: "gnIYRmddOJmdrf70oqwE",
-      task_id: ["ol11poxwuro7CSGed7th"],
-      user_id: "SxC0e6aMigpdRIP0Uybq",
-      // create_at: {
-      //   seconds: 1647059400,
-      //   nanos: 0
-      // },
-      // starts_at: {
-      //   seconds: 1647059400,
-      //   nanos: 0
-      // },
-      // ends_at: {
-      //   seconds: 1647174600,
-      //   nanos: 0
-      // },
+      appointment_id: appointment_id,
+      // task_id: '',
+      user_id: user_id,
       plate_no: plateNumber,
       brand: carbrand,
       description: description,
       status: "pending",
-      name: fname + lname,
+      firstName: fname,
+      lastName: lname,
+      email: email,
+      telephone: phoneNumber,
+      starts_at: dateTime,
     };
-    axios.post(url + "/a/create", data2).then((res) => {
+    console.log(dateTime);
+    console.log(typeof(dateTime));
+
+
+
+
+    axios.post(url + "/a/createDetail", data2).then((res) => {
+      console.log(dateTime);
       console.log(res);
-      console.log(carbrand);
-      // window.location.href = '/booking';
+      window.location.href = '/home';
     });
   };
 
@@ -158,8 +177,8 @@ export default function SkeletonBooking() {
                         label="Last Name"
                         maxRows={4}
                         onChange={(e) => setLname(e.target.value)}
-                        // value={value}
-                        // onChange={handleChange}
+                      // value={value}
+                      // onChange={handleChange}
                       />
                     </Grid>
                   </Stack>
@@ -173,8 +192,8 @@ export default function SkeletonBooking() {
                         label="Email"
                         maxRows={4}
                         onChange={(e) => setEmail(e.target.value)}
-                        // value={value}
-                        // onChange={handleChange}
+                      // value={value}
+                      // onChange={handleChange}
                       />
                     </Grid>
                     <Grid>
@@ -199,7 +218,7 @@ export default function SkeletonBooking() {
                         label="Plate Number"
                         maxRows={4}
                         onChange={(e) => setPlateNumber(e.target.value)}
-                        // value={value}
+                      // value={value}
                       />
                     </Grid>
                     <Grid>
@@ -236,14 +255,20 @@ export default function SkeletonBooking() {
                         onChange={(e) => setDescription(e.target.value)}
                       />
                     </Grid>
+                 
                     <Grid>
                       <TextField
                         id="datetime-local"
                         label="Date-Time"
                         type="datetime-local"
-                        defaultValue="2022-05-24T10:30"
+                        defaultValue={new Date().toISOString().slice(0, 16)}
+                        inputProps={{
+                          min: new Date().toISOString().slice(0, 16),
+                          max: "2022-03-28T00:00"
+                        }}
                         InputLabelProps={{
-                          shrink: true,
+                          shrink: true, 
+
                         }}
                         onChange={(e) => setDateTime(e.target.value)}
                       />

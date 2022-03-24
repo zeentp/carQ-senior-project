@@ -11,6 +11,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MainLayout from './Component/MainLayout';
 import SkeletonBooking from './Page/SkeletonBooking';
 import AppBarClient from './Component/AppBarClient';
+import BookingDate from './Page/BookingDate';
+
+
 const theme = createTheme(
   {
 
@@ -34,6 +37,8 @@ function App() {
           <Route path="test" element={<Test />} />
           <Route path="corousel" element={<Corousel />} />
           <Route path="booking" element={<SkeletonBooking />} />
+          <Route path="bookingDate" element={<BookingDate />} />
+
         </Routes>
       </ThemeProvider>
     </div>
