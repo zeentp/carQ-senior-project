@@ -41,7 +41,6 @@ import { v4 as uuid } from 'uuid';
 export default function SkeletonBooking() {
   const appointment_id = uuid();
   const user_id = uuid();
-
   const [fname, setFname] = React.useState("");
   const [lname, setLname] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -52,6 +51,13 @@ export default function SkeletonBooking() {
   const [description, setDescription] = React.useState("");
   const [disableApplyButton, setDisableApplyButton] = React.useState(false);
   const axios = require("axios");
+  //
+
+  const [isEmpty, setIsEmpty] = React.useState();
+
+
+
+
   useEffect(() => {
     if (
       fname !== "" &&
@@ -95,29 +101,34 @@ export default function SkeletonBooking() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    var data1 = {
-      appointment_id: "id",
-      task_id: ["task_id"],
-      task_id: ["ol11poxwuro7CSGed711th"],
-      user_id: "userid",
-      create_at: "d",
-      starts_at: "w",
-      ends_at: "w",
-      plate_no: plateNumber,
-      brand: carbrand,
-      description: description,
-      name: fname + lname,
-      status: "pending",
-      firstName: fname,
-      lastName: lname,
-      telephone: phoneNumber,
-      // email: email,
-      // age: 22,
-    };
+    if (fname === '') {
+      setIsEmpty(true)
+    }
+    if (lname === '') {
+      setIsEmpty(true)
+    }
+    if (email === '') {
+      setIsEmpty(true)
+    }
+    if (phoneNumber === '') {
+      setIsEmpty(true)
+    }
+    if (plateNumber === '') {
+      setIsEmpty(true)
+    }
+    if (carbrand === '') {
+      setIsEmpty(true)
+    }
+    if (dateTime === '') {
+      setIsEmpty(true)
+    }
+    if (description === '') {
+      setIsEmpty(true)
+    }
+    
 
     var data2 = {
       appointment_id: appointment_id,
-      // task_id: '',
       user_id: user_id,
       plate_no: plateNumber,
       brand: carbrand,
@@ -130,16 +141,27 @@ export default function SkeletonBooking() {
       // starts_at: dateTime,
     };
     console.log(dateTime);
-    console.log(typeof(dateTime));
+    console.log(typeof (dateTime));
 
 
 
-
-    axios.post(url + "/a/createDetail", data2).then((res) => {
-      console.log(dateTime);
-      console.log(res);
-      window.location.href = '/home';
-    });
+    if (
+      fname !== "" &&
+      lname !== "" &&
+      email !== "" &&
+      phoneNumber.length === 12 &&
+      phoneNumber.length !== "" &&
+      plateNumber !== "" &&
+      carbrand !== null &&
+      dateTime !== null &&
+      description !== ""
+    ) {
+      axios.post(url + "/a/createDetail", data2).then((res) => {
+        console.log(dateTime);
+        console.log(res);
+        window.location.href = '/home';
+      });
+    }
   };
 
   return (
@@ -164,6 +186,8 @@ export default function SkeletonBooking() {
                     pb={2}>
                     <Grid>
                       <TextField
+                        error={isEmpty}
+                        helperText={isEmpty === true ? "please fill the form" : ''}
                         id="standard-multiline-flexible"
                         label="First Name"
                         maxRows={4}
@@ -173,6 +197,8 @@ export default function SkeletonBooking() {
                     </Grid>
                     <Grid>
                       <TextField
+                        //  error ={isEmpty}
+                        //  helperText={ isEmpty === true ? "please fill the form":''}
                         id="standard-multiline-flexible"
                         label="Last Name"
                         maxRows={4}
@@ -188,6 +214,8 @@ export default function SkeletonBooking() {
                     pb={2}>
                     <Grid>
                       <TextField
+                        error={isEmpty}
+                        helperText={isEmpty === true ? "please fill the form" : ''}
                         id="standard-multiline-flexible"
                         label="Email"
                         maxRows={4}
@@ -198,6 +226,8 @@ export default function SkeletonBooking() {
                     </Grid>
                     <Grid>
                       <TextField
+                        // error ={isEmpty}
+                        // helperText={ isEmpty === true ? "please fill the form":''}
                         id="standard-multiline-flexible"
                         label="TEL"
                         maxRows={4}
@@ -214,6 +244,8 @@ export default function SkeletonBooking() {
                     pb={2}>
                     <Grid>
                       <TextField
+                        error={isEmpty}
+                        helperText={isEmpty === true ? "please fill the form" : ''}
                         id="standard-multiline-flexible"
                         label="Plate Number"
                         maxRows={4}
@@ -228,6 +260,8 @@ export default function SkeletonBooking() {
                             Car brand
                           </InputLabel>
                           <Select
+                            // error ={isEmpty}
+                            // helperText={ isEmpty === true ? "please fill the form":''}
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={carbrand}
@@ -249,25 +283,28 @@ export default function SkeletonBooking() {
                     pb={2}>
                     <Grid>
                       <TextField
+                        error={isEmpty}
+                        helperText={isEmpty === true ? "please fill the form" : ''}
                         id="standard-multiline-flexible"
                         label="Description"
                         maxRows={4}
                         onChange={(e) => setDescription(e.target.value)}
                       />
                     </Grid>
-                 
+
                     <Grid>
                       <TextField
+                        error={isEmpty}
+                        helperText={isEmpty === true ? "please fill the form" : ''}
                         id="datetime-local"
                         label="Date-Time"
                         type="datetime-local"
-                        defaultValue={new Date().toISOString().slice(0, 16)}
                         inputProps={{
                           min: new Date().toISOString().slice(0, 16),
-                          max: "2022-03-28T00:00"
+                          // max: "2022-03-28T00:00"
                         }}
                         InputLabelProps={{
-                          shrink: true, 
+                          shrink: true,
 
                         }}
                         onChange={(e) => setDateTime(e.target.value)}
@@ -286,7 +323,8 @@ export default function SkeletonBooking() {
                   <Button
                     type="submit"
                     variant="contained"
-                    disabled={disableApplyButton}>
+                  // disabled={disableApplyButton}
+                  >
                     Confirm
                   </Button>
                 </Stack>

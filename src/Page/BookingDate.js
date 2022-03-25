@@ -50,6 +50,8 @@ export default function SkeletonBooking() {
   const [carbrand, setCarBrand] = React.useState("");
   const [dateTime, setDateTime] = React.useState("");
   const [description, setDescription] = React.useState("");
+
+  
   const [isAvaliable,setAvaliable] = React.useState(false);
   const [disableApplyButton, setDisableApplyButton] = React.useState(false);
   const axios = require("axios");
@@ -87,27 +89,9 @@ export default function SkeletonBooking() {
   };
 
   const handleSubmit = (event) => {
-      setAvaliable(true)
+    setAvaliable(true)
     event.preventDefault();
-    var data1 = {
-      appointment_id: "id",
-      task_id: ["task_id"],
-      task_id: ["ol11poxwuro7CSGed711th"],
-      user_id: "userid",
-      create_at: "d",
-      starts_at: "w",
-      ends_at: "w",
-      plate_no: plateNumber,
-      brand: carbrand,
-      description: description,
-      name: fname + lname,
-      status: "pending",
-      firstName: fname,
-      lastName: lname,
-      telephone: phoneNumber,
-      // email: email,
-      // age: 22,
-    };
+
 
     var data2 = {
       appointment_id: appointment_id,
@@ -123,13 +107,13 @@ export default function SkeletonBooking() {
       telephone: phoneNumber,
       starts_at: 'dateTime',
     };
-    console.log(dateTime);
+    // console.log(dateTime);
     // Date.parse("2022-03-21 10:17:51")/1000;
-    // axios.post(url + "/a/createDetail", data2).then((res) => {
-    //   console.log(dateTime);
-    //   console.log(res);
-    //   window.location.href = '/home';
-    // });
+    axios.post(url + "/a/createDetail", data2).then((res) => {
+      console.log(dateTime);
+      console.log(res);
+      window.location.href = '/home';
+    });
   };
 
   return (
