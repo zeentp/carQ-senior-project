@@ -21,14 +21,17 @@ import {
 import { v4 as uuid } from 'uuid';
 // import AdapterDateFns from '@mui/lab/AdapterDateFns';
 // import LocalizationProvider from '@mui/lab/LocalizationProvider';
-// import DatePicker from '@mui/lab/DatePicker';
-// function BasicDatePicker() {
-//   const [value, setValue] = React.useState(null);
+// import StaticDatePicker from '@mui/lab/StaticDatePicker';
+
+// function StaticDatePickerDemo() {
+//   const [value, setValue] = React.useState(new Date());
 
 //   return (
 //     <LocalizationProvider dateAdapter={AdapterDateFns}>
-//       <DatePicker
-//         label="Basic example"
+//       <StaticDatePicker
+//         disablePast
+//         displayStaticWrapperAs="desktop"
+//         openTo="year"
 //         value={value}
 //         onChange={(newValue) => {
 //           setValue(newValue);
@@ -38,6 +41,8 @@ import { v4 as uuid } from 'uuid';
 //     </LocalizationProvider>
 //   );
 // }
+
+
 export default function SkeletonBooking() {
   const appointment_id = uuid();
   const user_id = uuid();

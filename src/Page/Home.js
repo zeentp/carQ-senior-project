@@ -31,7 +31,7 @@ export default function Home() {
 
   const handleOnClick = () => {
     console.log(window.innerWidth)
-    window.location.href = "/booking";
+    window.location.href = "/testStep";
   };
   return (
     <Box sx={{ bgcolor: '#243040' }}>

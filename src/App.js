@@ -11,9 +11,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MainLayout from './Component/MainLayout';
 import SkeletonBooking from './Page/SkeletonBooking';
 import AppBarClient from './Component/AppBarClient';
-import BookingDate from './Page/BookingDate';
+// import BookingDate from './Page/BookingDate';
 import CheckStatus from './Page/CheckStatus'
-
+import BookingDate from './Page/DemoDate';
+import HorizontalLinearStepper from './Page/StepTest';
 const theme = createTheme(
   {
 
@@ -39,7 +40,7 @@ function App() {
           <Route path="booking" element={<SkeletonBooking />} />
           <Route path="bookingDate" element={<BookingDate />} />
           <Route path="checkStatus" element={<CheckStatus />} />
-
+          <Route path="testStep" element={<HorizontalLinearStepper />} />
 
         </Routes>
       </ThemeProvider>

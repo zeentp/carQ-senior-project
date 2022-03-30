@@ -2,6 +2,7 @@ import React from "react";
 import MainLayout from "../Component/MainLayout";
 import { useEffect, useState } from "react";
 import { URL as url } from '../Constants';
+import BookingDate from "./DemoDate";
 import {
   Card,
   CardContent,
@@ -125,8 +126,6 @@ export default function SkeletonBooking() {
     if (description === '') {
       setIsEmpty(true)
     }
-    
-
     var data2 = {
       appointment_id: appointment_id,
       user_id: user_id,
@@ -142,9 +141,6 @@ export default function SkeletonBooking() {
     };
     console.log(dateTime);
     console.log(typeof (dateTime));
-
-
-
     if (
       fname !== "" &&
       lname !== "" &&
@@ -166,6 +162,7 @@ export default function SkeletonBooking() {
 
   return (
     <div>
+      <BookingDate></BookingDate>
       <MainLayout isCard={true}>
         <Card  >
           <CardHeader title="Make Appointment" />

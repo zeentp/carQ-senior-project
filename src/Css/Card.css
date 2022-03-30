@@ -16,3 +16,10 @@
   max-width: 500px;
   height: auto;
 }
+.responsive2 {
+  width: 100%;
+  max-width: 200px;
+  height: auto; 
+  justify-self: center;
+  color: blue;
+}
