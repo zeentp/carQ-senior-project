@@ -17,8 +17,9 @@
   height: auto;
 }
 .responsive2 {
+  padding-top: 2px;
   width: 100%;
-  max-width: 200px;
+  max-width: 150px;
   height: auto; 
   justify-self: center;
   color: blue;

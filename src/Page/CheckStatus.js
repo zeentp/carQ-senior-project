@@ -7,18 +7,70 @@ import HomeImg from '../img/home-img.png';
 import { IconButton, InputAdornment } from '@mui/material'
 import MuiAlert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import { URL as url } from '../Constants';
+import { purple } from '@mui/material/colors';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+// const theme = createTheme({
+//     palette: {
+//       primary: {
+//         // Purple and green play nicely together.
+//         main: purple[500],
+//       },
+//       secondary: {
+//         // This is green.A700 as hex.
+//         main: '#11cb5f',
+//       },
+//     },
+//   });
 export default function CheckStatus() {
+    const axios = require("axios");
+
     const [alertOpen, setAlertOpen] = React.useState(false);
     const [isAvaliable, setAvaliable] = React.useState('');
     const [telephone, setTelephone] = React.useState('');
+    const [user, setUser] = React.useState([]);
+
+
+    async function getAppointment() {
+        await axios.get(url + "/a/appointment/user?telephoneNum=" + telephone)
+            .then(
+                (result) => {
+                    console.log(result)
+                    const list = result.data.map((d) => d);
+                    setUser(list);
+                    console.log(isAvaliable)
+                    console.log(isAvaliable)
+
+                    if (list.length !== 0) {
+                        setAvaliable('found')
+                    } else {
+                        setAvaliable('notFound')
+                        setAlertOpen(true)
+                    }
+                })
+        // if (user.length !== 0) {
+        //     setAvaliable('found')
+        // }
+        // else {
+        //     setAvaliable('notFound')
+        //     setAlertOpen(true)
+        // }
+
+    }
     const handleSubmit = () => {
-        if(telephone.length===12){
-            if(telephone==='089-111-5491'){
-                setAvaliable('found')  
-            }else{
-            setAvaliable('notFound')
-            }
-        }else{
+        if (telephone.length === 10) {
+            getAppointment()
+            //     if (user.length !== 0) {
+            //         setAvaliable('found')
+            //     } else {
+            //         setAvaliable('notFound')
+            //         setAlertOpen(true)
+            //     }
+            // } else {
+            //     setAvaliable('empty')
+            //     setAlertOpen(true)
+        } else {
+            setAvaliable('empty')
             setAlertOpen(true)
         }
         console.log(isAvaliable)
@@ -46,17 +98,36 @@ export default function CheckStatus() {
         }
         setAlertOpen(false);
     };
-        
-  
+    const formatDate = (d) => {
+        const date = new Date(d * 1000).toLocaleString('fr-FR')
+        return date
+    }
+    const formatPhone = (telephone) => {
+        var val = telephone.replace(/[^0-9]/g, "");
+          let a = val;
+          a = val.slice(0, 3);
+          a += val.length > 3 ? "-" + val.slice(3, 6) : "";
+          a += val.length > 6 ? "-" + val.slice(6) : "";
+          val = a;
+      
+        return val
+      };
+
 
     return (
         <div>
-                <Snackbar open={alertOpen} autoHideDuration={6000} onClose={handleAlertClose}>
-                    <Alert onClose={handleAlertClose} severity="warning" sx={{ width: '100%' }}>
-                        Please fill the form
-                    </Alert>
-                </Snackbar>
-                
+            <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
+                {
+                    isAvaliable === 'notFound' ? <Alert onClose={handleAlertClose} severity="error" sx={{ width: '100%' }}>
+                        Not found.
+                    </Alert> :
+                        <Alert onClose={handleAlertClose} severity="warning" sx={{ width: '100%' }}>
+                            Please Fill in the Correct Phone Number.
+                        </Alert>
+                }
+
+            </Snackbar>
+
             <MainLayout>
                 <Box justifyContent={'center'} sx={{ pt: 3, pb: 3, bgcolor: "gray" }}>
                     <Grid container spacing={2}>
@@ -96,8 +167,9 @@ export default function CheckStatus() {
                                         </IconButton> */}
                                         <InputBase
                                             value={telephone}
-                                            inputProps={{ maxLength: 12 }}
-                                            onChange={handlePhoneChange}
+                                            inputProps={{ maxLength: 10 }}
+                                            // onChange={handlePhoneChange}
+                                            onChange={(e) => setTelephone(e.target.value)}
                                             onKeyPress={(ev) => {
                                                 console.log(`Pressed keyCode ${ev.key}`);
                                                 if (ev.key === 'Enter') {
@@ -154,117 +226,73 @@ export default function CheckStatus() {
             </MainLayout >
             {
                 isAvaliable === 'found' ?
-                    <Box>
-                        <MainLayout>
-                            <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3, }}>
-                                <Grid component={Paper} sx={{ bgcolor: "#1a2138" }} elevation={8} container spacing={2}>
-                                    <Container  >
-                                        <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
-                                            <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
-                                                <Grid sx={{ color: 'white' }} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
-                                                    <Typography variant="h2">Your Appointment</Typography>
-                                                    <Typography sx={{ pb: 2 }} variant="h5">Reservation Online</Typography>
-                                                    <button id="setEffectButton"> Edit </button>
-                                                </Grid>
-                                                <Grid>
-                                                    <CardContent>
-                                                        <Box
-                                                            sx={{ display: 'flex', p: 1, borderRadius: 1 }}
-                                                        >
-                                                            <Typography sx={{ flexGrow: 1, color: 'white' }} >Yong pond</Typography>
-                                                            <Chip label="completed" color="success" />
-                                                        </Box>
-                                                        {/* <Grid display={'flex'} justifyContent={'flex-end'} spacing={2}>
+
+                    user.map((a) => {
+
+                        return (
+                            <Box>
+                                <MainLayout>
+                                    <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3, }}>
+                                        <Grid component={Paper} sx={{ bgcolor: "#1a2138" }} elevation={8} container spacing={2}>
+                                            <Container  >
+                                                <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
+                                                    <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
+                                                        <Grid sx={{ color: 'white' }} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
+                                                            <Typography variant="h2">Your Appointment</Typography>
+                                                            {/* <Typography sx={{ pb: 2 }} variant="h5">id: {a.appointment_id}</Typography> */}
+                                                            {/* <button id="setEffectButton"> Edit </button> */}
+                                                        </Grid>
+                                                        <Grid>
+                                                            <CardContent>
+
+                                                                <Box
+                                                                    sx={{ display: 'flex', p: 1, borderRadius: 1 }}
+                                                                >
+                                                                    <Typography sx={{ flexGrow: 1, color: 'white' }} >{a.name}</Typography>
+                                                                    <Typography sx={{ flexGrow: 1, color: 'white' }} > Telephone : {formatPhone(a.telephone)}</Typography>
+                                                                    <Chip label={a.status} sx={{ color: 'white' }} color={a.status === 'completed' ? "success" : a.status === 'booking' ? "default" : a.status === 'pending' ? 'info' : 'secondary'} />
+                                                                </Box>
+                                                                {/* <Grid display={'flex'} justifyContent={'flex-end'} spacing={2}>
                                                             <Typography sx={{color:'white'}}>
                                                                 Your Booking
                                                             </Typography>
                                                             <Chip label="primary" color="primary" variant="outlined" />
                                                         </Grid> */}
-                                                        <Divider sx={{ bgcolor: 'white' }}></Divider>
-                                                        <CardContent>
-                                                            <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{xs:0,sm:4}}>
-                                                                <Typography>
-                                                                    brand : Toyota
-                                                                </Typography>
-                                                                <Typography>
-                                                                    Telephone : 089-789-4448
-                                                                </Typography>
-                                                            </Stack>
-                                                            <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{xs:0,sm:4}}>
-                                                                <Typography>
-                                                                    Email : Jett@gmail.com
-                                                                </Typography>
-                                                                <Typography>
-                                                                    Date: 09-03-2022 10:20
-                                                                </Typography>
-                                                            </Stack>
-                                                        </CardContent>
-                                                    </CardContent>
+                                                                <Divider sx={{ bgcolor: 'white' }}></Divider>
+                                                                <CardContent>
+                                                                    <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{ xs: 0, sm: 4 }}>
+                                                                        <Typography>
+                                                                            Brand : {a.brand}
+                                                                        </Typography>
+                                                                        <Typography>
+                                                                            PlateNumber : {a.plate_no}
+                                                                        </Typography>
+                                                                    </Stack>
+                                                                    <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{ xs: 0, sm: 4 }}>
+                                                                        <Typography>
+                                                                            Description : {a.description}
+                                                                        </Typography>
+                                                                        <Typography>
+                                                                            Date: {formatDate(a.starts_at.seconds)}
+                                                                        </Typography>
+                                                                    </Stack>
+                                                                </CardContent>
+                                                            </CardContent>
+                                                        </Grid>
+                                                    </Stack>
                                                 </Grid>
-                                            </Stack>
+                                            </Container>
                                         </Grid>
-                                    </Container>
-                                </Grid>
+                                    </Box>
+                                </MainLayout>
                             </Box>
-                        </MainLayout>
-                    </Box>
-                    : isAvaliable === 'notFound' ?
-                    <Box>
-                        <MainLayout>
-                            <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3, }}>
-                                <Grid component={Paper} sx={{ bgcolor: "#1a2138" }} elevation={8} container spacing={2}>
-                                    <Container  >
-                                        <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
-                                            <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
-                                                <Grid sx={{ color: 'white' }} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
-                                                    <Typography variant="h2">Your Appointment</Typography>
-                                                    <Typography sx={{ pb: 2 }} variant="h5">Reservation Online</Typography>
-                                                    <button id="setEffectButton"> Edit </button>
-                                                </Grid>
-                                                <Grid>
-                                                    <CardContent>
-                                                        <Box
-                                                            sx={{ display: 'flex', p: 1, borderRadius: 1 }}
-                                                        >
-                                                            <Typography sx={{ flexGrow: 1, color: 'white' }} >not found</Typography>
-                                                            <Chip label="not found" sx={{color:'red'}} />
-                                                        </Box>
-                                                        {/* <Grid display={'flex'} justifyContent={'flex-end'} spacing={2}>
-                                                            <Typography sx={{color:'white'}}>
-                                                                Your Booking
-                                                            </Typography>
-                                                            <Chip label="primary" color="primary" variant="outlined" />
-                                                        </Grid> */}
-                                                        <Divider sx={{ bgcolor: 'white' }}></Divider>
-                                                        <CardContent>
-                                                            <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{xs:0,sm:4}}>
-                                                                <Typography>
-                                                                    brand : -
-                                                                </Typography>
-                                                                <Typography>
-                                                                    Telephone : -
-                                                                </Typography>
-                                                            </Stack>
-                                                            <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{xs:0,sm:4}}>
-                                                                <Typography>
-                                                                    Email : -
-                                                                </Typography>
-                                                                <Typography>
-                                                                    Date: -
-                                                                </Typography>
-                                                            </Stack>
-                                                        </CardContent>
-                                                    </CardContent>
-                                                </Grid>
-                                            </Stack>
-                                        </Grid>
-                                    </Container>
-                                </Grid>
-                            </Box>
-                        </MainLayout>
-                    </Box>
+                        );
+                    })
+
                     : <Box></Box>
             }
+
+
             {/* // <MainLayout isCard={true}>
         //     <Grid>
         //         <CardMedia

@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from "react-router-dom";
 
-const pages = ['Home', 'Booking','Tracking'];
+const pages = ['Home', 'Booking', 'Tracking'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const AppBarClient = () => {
@@ -35,15 +35,20 @@ const AppBarClient = () => {
   const navigateToPage = (page) => {
     switch (page) {
       case "Booking":
+        setAnchorElNav(null);
         navigate("booking");
         break;
       case "Home":
+        setAnchorElNav(null);
         navigate("Home");
         break;
-        case "Tracking":
-          navigate("checkStatus");
-          break;
+      case "Tracking":
+        setAnchorElNav(null);
+        navigate("checkStatus");
+        break;
       default:
+        setAnchorElNav(null);
+
         navigate("/");
     }
   }

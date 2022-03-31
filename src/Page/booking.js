@@ -30,6 +30,7 @@ import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import DateForm from "../Component/DateForm";
 import "../Css/Card.css"
+import BasicModal from "../Component/Modal";
 import {
     useForm,
     Controller,
@@ -54,6 +55,20 @@ function getSteps() {
 
 const BasicForm = () => {
     const { control } = useFormContext();
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+  const handlePhoneChange = (event) => {
+    var val = event.target.value.replace(/[^0-9]/g, "");
+    if (val[0] === "0") {
+      let a = val;
+      a = val.slice(0, 3);
+      a += val.length > 3 ? "-" + val.slice(3, 6) : "";
+      a += val.length > 6 ? "-" + val.slice(6) : "";
+      val = a;
+    } else {
+      val = "";
+    }
+    setPhoneNumber(val);
+  };
     return (
         <>
             <Controller
@@ -342,7 +357,14 @@ const LinaerStepper = () => {
     };
 
     const handleNext = (data) => {
-        console.log(data);
+      let dateToString =  data.bookingDate.toString()
+      let time = data.bookingDate.toTimeString();
+      let booking_date = new Date (dateToString.replace(time, data.bookingTime+":00 GMT+0700 (Indochina Time)"));
+        console.log(booking_date);
+
+
+
+
 
 
         if (activeStep == steps.length - 1) {
@@ -353,17 +375,16 @@ const LinaerStepper = () => {
                 plate_no: data.plateNumber,
                 brand: data.brand,
                 description: data.description,
-                status: "pending",
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: data.emailAddress,
                 telephone: data.telephone,
                 // starts_at: data.bookingDate,
+                startAt: booking_date,
             };
-            // axios.post(url + "/a/createDetail", data).then((res) => {
-            //     console.log(res);
-            //     window.location.href = '/home';
-            // });
+            axios.post(url + "/a/createDetail", data).then((res) => {
+                console.log(res);
+            });
             // fetch("https://jsonplaceholder.typicode.com/comments")
             //     .then((data) => data.json())
             //     .then((res) => {
@@ -394,32 +415,35 @@ const LinaerStepper = () => {
     const onSubmit = (data) => {
         console.log(data);
     };
+  
     const holiday = [{
         date: new Date(),
     }, {
         date: new Date()
     }]
     useEffect(() => {
-        console.log(holiday)
+        // console.log(holiday)
     }, [])
-
+    const handleOnClick = () => {
+        window.location.href = "/";
+    };
     return (
         <div>
             <Stepper sx={{ pt: 5 }} alternativeLabel activeStep={activeStep}>
                 {steps.map((step, index) => {
                     const labelProps = {};
                     const stepProps = {};
-                    if (isStepOptional(index)) {
-                        labelProps.optional = (
-                            <Typography
-                                variant="caption"
-                                align="center"
-                                style={{ display: "block" }}
-                            >
-                                optional
-                            </Typography>
-                        );
-                    }
+                    // if (isStepOptional(index)) {
+                    //     labelProps.optional = (
+                    //         <Typography
+                    //             variant="caption"
+                    //             align="center"
+                    //             style={{ display: "block" }}
+                    //         >
+                    //             optional
+                    //         </Typography>
+                    //     );
+                    // }
                     if (isStepSkipped(index)) {
                         stepProps.completed = false;
                     }
@@ -432,7 +456,7 @@ const LinaerStepper = () => {
             </Stepper>
 
             {activeStep === steps.length ? (
-                <Box display={'grid'} justifyContent={'center'}  >
+                <Box display={'grid'} justifyContent={'center'} sx={{pt:2}} >
                     <img
                         sx={{ pt: 5 }}
                         className='responsive2'
@@ -443,7 +467,18 @@ const LinaerStepper = () => {
                     <Typography sx={{ pt: 2 }} variant="h3" align="center">
                         Thank You
                     </Typography>
+                    {/* <Typography sx={{ pt: 0 }} variant="h5" align="center">
+                        For Reservation ,please Await response from Admin
+                    </Typography> */}
 
+                    <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                        onClick={handleOnClick}
+                    >
+                        Go to HomePage
+                    </Button>
                 </Box>
             ) : (
                 <>
@@ -469,7 +504,9 @@ const LinaerStepper = () => {
                                     skip
                                 </Button>
                             )} */}
+
                                     <Button
+                                        // disabled
                                         className={classes.button}
                                         variant="contained"
                                         color="primary"
@@ -478,6 +515,7 @@ const LinaerStepper = () => {
                                     >
                                         {activeStep === steps.length - 1 ? "Finish" : "Next"}
                                     </Button>
+                                    <Box></Box>
                                 </Container>
                             </MainLayout>
                         </form>

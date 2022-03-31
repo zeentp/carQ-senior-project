@@ -28,13 +28,22 @@ import {
     useFormContext,
 } from "react-hook-form";
 import MainLayout from "../Component/MainLayout";
+
 const DateForm = () => {
+  const [isEmpty, setIsEmpty] = React.useState(true);
     const { control } = useFormContext();
+    const handleChange =(val) =>{
+        console.log("--- date changed: ", val.toString());
+        console.log(1)
+        setIsEmpty(false)
+    }
     function disableWeekends(date) {
-        const  d = new Date('2022-03-30T00:00')
-        // return date.getDay() === 0 || date.getDay() === 6;
-        // console.log(+d,+date)
-        return +d === +date
+        const data = [
+             new Date('2022-04-04T00:00').getTime(),
+             new Date('2022-04-05T00:00').getTime(),
+        ]
+        const  d = new Date('2022-04-06T00:00')
+        return date.getDay() === 0 || date.getDay() === 6 || data.includes(date.getTime())
         
       }
 
@@ -49,10 +58,11 @@ const DateForm = () => {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <StaticDatePicker
                                 disablePast
+                                autoOk
                                 displayStaticWrapperAs="desktop"
                                 openTo="day"
                                 excludeDates={'03-29-2021'}
-                                // value={value}
+                                // onChange={handleChange}
                                 value={field.value}
                                 views={[ 'month', 'day']}
                                 {...field}
@@ -62,6 +72,9 @@ const DateForm = () => {
                         </LocalizationProvider>
                     )}
                 />
+                {/* <Button disabled={isEmpty}>
+                    Test
+                </Button> */}
             </MainLayout>
         </>
     );

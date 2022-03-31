@@ -14,7 +14,7 @@ import AppBarClient from './Component/AppBarClient';
 // import BookingDate from './Page/BookingDate';
 import CheckStatus from './Page/CheckStatus'
 import BookingDate from './Page/DemoDate';
-import HorizontalLinearStepper from './Page/StepTest';
+import HorizontalLinearStepper from './Page/booking';
 const theme = createTheme(
   {
 
@@ -37,10 +37,8 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="test" element={<Test />} />
           <Route path="corousel" element={<Corousel />} />
-          <Route path="booking" element={<SkeletonBooking />} />
-          <Route path="bookingDate" element={<BookingDate />} />
           <Route path="checkStatus" element={<CheckStatus />} />
-          <Route path="testStep" element={<HorizontalLinearStepper />} />
+          <Route path="booking" element={<HorizontalLinearStepper />} />
 
         </Routes>
       </ThemeProvider>

@@ -30,9 +30,9 @@ export default function Home() {
   let params = useParams();
 
   const handleOnClick = () => {
-    console.log(window.innerWidth)
-    window.location.href = "/testStep";
+    window.location.href = "/booking";
   };
+  
   return (
     <Box sx={{ bgcolor: '#243040' }}>
       <MainLayout>
