@@ -29,9 +29,17 @@ import {
     useFormContext,
 } from "react-hook-form";
 import MainLayout from "../Component/MainLayout";
+import { te } from "date-fns/locale";
 const BookingForm = () => {
+
+    useEffect(() => {
+
+    }, [
+    ]);
     const { control } = useFormContext();
+    const [phoneNumber, setPhoneNumber] = React.useState("");
     const handlePhoneChange = (event) => {
+        console.log(phoneNumber)
         var val = event.target.value.replace(/[^0-9]/g, "");
         if (val[0] === "0") {
             let a = val;
@@ -42,16 +50,18 @@ const BookingForm = () => {
         } else {
             val = "";
         }
-        console.log(val)
-        return (val);
 
+        // value = val
+        setPhoneNumber(val)
+        // console.log(value)
+        return val
     };
     return (
         <MainLayout isCard={true}>
             <Card>
                 <CardHeader title="Make Appointment" />
                 <CardContent>
-                    <Grid  item xs={12} md={12} lg={12} 
+                    <Grid item xs={12} md={12} lg={12}
                         sx={{
                             "& .MuiSelect-select": { width: "20ch" },
                         }}
@@ -75,7 +85,6 @@ const BookingForm = () => {
                                         />
                                     )}
                                 />
-
                                 <Controller
                                     control={control}
                                     name="lastName"
@@ -166,16 +175,33 @@ const BookingForm = () => {
                                         </InputMask>
                                     )}
                                 /> */}
+                                {/* <Controller
+                                    control={control}
+                                    name="telephone"
+                                    render={({field}) => (
+                                        <TextField
+                                            onChange={(e) => handlePhoneChange(e, field)}
+                                            id="telephone"
+                                            label="telephone"
+                                            variant="outlined"
+                                            value={phoneNumber}
+                                            placeholder="Enter Your Telephone"
+                                            inputProps={{ maxLength: 12 }}
+                                        // {...field}
+                                        />
+                                    )} 
+                                 /> */}
                                 <Controller
                                     control={control}
                                     name="telephone"
-                                    render={({ field }) => (
+                                    render={({ field}) => (
                                         <TextField
                                             id="telephone"
                                             label="telephone"
                                             variant="outlined"
                                             placeholder="Enter Your Telephone"
                                             inputProps={{ maxLength: 10 }}
+                                            // onInput = {(e) => handlePhoneChange(e)}
                                             {...field}
                                         />
                                     )}
@@ -189,6 +215,7 @@ const BookingForm = () => {
                                         <TextField
                                             fullWidth
                                             multiline
+                                            value={field.value}
                                             id="description"
                                             label="description"
                                             variant="outlined"

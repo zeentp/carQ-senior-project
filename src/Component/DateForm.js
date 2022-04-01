@@ -41,6 +41,7 @@ const DateForm = () => {
         const data = [
              new Date('2022-04-04T00:00').getTime(),
              new Date('2022-04-05T00:00').getTime(),
+             new Date('2022-04-08T00:00').getTime(),
         ]
         const  d = new Date('2022-04-06T00:00')
         return date.getDay() === 0 || date.getDay() === 6 || data.includes(date.getTime())

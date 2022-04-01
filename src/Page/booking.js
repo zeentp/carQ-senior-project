@@ -357,6 +357,7 @@ const LinaerStepper = () => {
     };
 
     const handleNext = (data) => {
+        console.log(data)
       let dateToString =  data.bookingDate.toString()
       let time = data.bookingDate.toTimeString();
       let booking_date = new Date (dateToString.replace(time, data.bookingTime+":00 GMT+0700 (Indochina Time)"));

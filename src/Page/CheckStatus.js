@@ -10,6 +10,9 @@ import Snackbar from '@mui/material/Snackbar';
 import { URL as url } from '../Constants';
 import { purple } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { withStyles } from '@mui/styles';
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 // const theme = createTheme({
 //     palette: {
 //       primary: {
@@ -22,6 +25,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 //       },
 //     },
 //   });
+const StyleChip = withStyles({
+    root: {
+        backgroundColor: 'grey'
+    }
+})(Chip);
 export default function CheckStatus() {
     const axios = require("axios");
 
@@ -29,6 +37,8 @@ export default function CheckStatus() {
     const [isAvaliable, setAvaliable] = React.useState('');
     const [telephone, setTelephone] = React.useState('');
     const [user, setUser] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(null);
+
 
 
     async function getAppointment() {
@@ -37,10 +47,8 @@ export default function CheckStatus() {
                 (result) => {
                     console.log(result)
                     const list = result.data.map((d) => d);
-                    setUser(list);
-                    console.log(isAvaliable)
-                    console.log(isAvaliable)
-
+                    setUser(list);      
+                    setIsLoading(false)
                     if (list.length !== 0) {
                         setAvaliable('found')
                     } else {
@@ -58,6 +66,7 @@ export default function CheckStatus() {
 
     }
     const handleSubmit = () => {
+        setIsLoading(true)
         if (telephone.length === 10) {
             getAppointment()
             //     if (user.length !== 0) {
@@ -72,6 +81,7 @@ export default function CheckStatus() {
         } else {
             setAvaliable('empty')
             setAlertOpen(true)
+            setIsLoading(false)
         }
         console.log(isAvaliable)
     }
@@ -104,14 +114,14 @@ export default function CheckStatus() {
     }
     const formatPhone = (telephone) => {
         var val = telephone.replace(/[^0-9]/g, "");
-          let a = val;
-          a = val.slice(0, 3);
-          a += val.length > 3 ? "-" + val.slice(3, 6) : "";
-          a += val.length > 6 ? "-" + val.slice(6) : "";
-          val = a;
-      
+        let a = val;
+        a = val.slice(0, 3);
+        a += val.length > 3 ? "-" + val.slice(3, 6) : "";
+        a += val.length > 6 ? "-" + val.slice(6) : "";
+        val = a;
+
         return val
-      };
+    };
 
 
     return (
@@ -129,6 +139,7 @@ export default function CheckStatus() {
             </Snackbar>
 
             <MainLayout>
+
                 <Box justifyContent={'center'} sx={{ pt: 3, pb: 3, bgcolor: "gray" }}>
                     <Grid container spacing={2}>
                         <Container  >
@@ -163,6 +174,7 @@ export default function CheckStatus() {
                                         component="form"
                                         sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', }}
                                     >
+                                 
                                         {/* <IconButton sx={{ p: '10px' }} type="submit" aria-label="menu">
                                         </IconButton> */}
                                         <InputBase
@@ -223,6 +235,10 @@ export default function CheckStatus() {
                         </Stack>
                     </Grid>
                 </Box> */}
+                {/* {isloading === true ?
+                    <LinearProgress /> : null
+                } */}
+                {isLoading && <LinearProgress/>} 
             </MainLayout >
             {
                 isAvaliable === 'found' ?
@@ -239,7 +255,7 @@ export default function CheckStatus() {
                                                     <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
                                                         <Grid sx={{ color: 'white' }} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
                                                             <Typography variant="h2">Your Appointment</Typography>
-                                                            {/* <Typography sx={{ pb: 2 }} variant="h5">id: {a.appointment_id}</Typography> */}
+                                                            <Typography sx={{ pb: 2 }} variant="h5">id: {a.appointment_id}</Typography>
                                                             {/* <button id="setEffectButton"> Edit </button> */}
                                                         </Grid>
                                                         <Grid>
@@ -250,7 +266,11 @@ export default function CheckStatus() {
                                                                 >
                                                                     <Typography sx={{ flexGrow: 1, color: 'white' }} >{a.name}</Typography>
                                                                     <Typography sx={{ flexGrow: 1, color: 'white' }} > Telephone : {formatPhone(a.telephone)}</Typography>
-                                                                    <Chip label={a.status} sx={{ color: 'white' }} color={a.status === 'completed' ? "success" : a.status === 'booking' ? "default" : a.status === 'pending' ? 'info' : 'secondary'} />
+                                                                    {a.status === 'booking' ? <StyleChip color='primary' label={'booking'} /> :
+                                                                        <Chip label={a.status}
+                                                                            color={a.status === 'completed' ? "success" : a.status === 'on-track' ? "primary" : a.status === 'pending' ? 'secondary' : 'error'}
+                                                                        />
+                                                                    }
                                                                 </Box>
                                                                 {/* <Grid display={'flex'} justifyContent={'flex-end'} spacing={2}>
                                                             <Typography sx={{color:'white'}}>

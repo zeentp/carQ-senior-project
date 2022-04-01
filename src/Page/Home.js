@@ -88,7 +88,7 @@ export default function Home() {
                     </CardActions>
                     <CardContent sx={{ color: 'white' }}>
                       <Typography variant="h5" component="div">
-                      Booking
+                      Tracking
                       </Typography>
                       <Typography fontSize={14} color={'#7b808b'} variant="h6" component="div">
                       Clients who book either online, or over the phone will receive confirmation of their booking via email. This confirmation is linked to the users I-phone or android phone calendar, enabling the user to schedule their booking straight to their phone calendar.

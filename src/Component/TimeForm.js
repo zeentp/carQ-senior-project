@@ -65,10 +65,12 @@ const TimeForm = () => {
                                                         {...field}
                                                     // onChange={(e) => setCarBrand(e.target.value)}
                                                     >
-                                                        <MenuItem value={"10:30"}>10:30</MenuItem>
+                                                        <MenuItem value={"08:00"}>08:00</MenuItem>
+                                                        <MenuItem value={"10:00"}>10:00</MenuItem>
                                                         <MenuItem value={"12:00"}>12:00</MenuItem>
-                                                        <MenuItem value={"13:00"}>13:00</MenuItem>
-                                                        <MenuItem value={"15:00"}>15:00</MenuItem>
+                                                        <MenuItem value={"14:00"}>14:00</MenuItem>
+                                                        <MenuItem value={"16:00"}>16:00</MenuItem>
+                                                        <MenuItem value={"18:00"}>18:00</MenuItem>
                                                     </Select>
                                                 </Box>
                                             </FormControl>
