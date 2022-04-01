@@ -57,6 +57,7 @@ const TimeForm = () => {
                                                         Time
                                                     </InputLabel>
                                                     <Select
+                                                        required
                                                         labelId="demo-simple-select-label"
                                                         id="demo-simple-select"
                                                         value={field.value}

@@ -56,6 +56,10 @@ const BookingForm = () => {
         // console.log(value)
         return val
     };
+    const allowOnlyNumber = (value) => {
+        return value.replace(/[^0-9]/g, '')
+    }
+
     return (
         <MainLayout isCard={true}>
             <Card>
@@ -90,6 +94,7 @@ const BookingForm = () => {
                                     name="lastName"
                                     render={({ field }) => (
                                         <TextField
+                                            required
                                             id="last-name"
                                             label="Last Name"
                                             variant="outlined"
@@ -110,6 +115,7 @@ const BookingForm = () => {
                                     name="plateNumber"
                                     render={({ field }) => (
                                         <TextField
+                                            required
                                             id="Plate-number"
                                             label="Plate Number"
                                             variant="outlined"
@@ -145,6 +151,8 @@ const BookingForm = () => {
                                                     Car brand
                                                 </InputLabel>
                                                 <Select
+                                                    required
+
                                                     // error ={isEmpty}
                                                     // helperText={ isEmpty === true ? "please fill the form":''}
                                                     labelId="demo-simple-select-label"
@@ -194,8 +202,9 @@ const BookingForm = () => {
                                 <Controller
                                     control={control}
                                     name="telephone"
-                                    render={({ field}) => (
+                                    render={({ field }) => (
                                         <TextField
+                                            required
                                             id="telephone"
                                             label="telephone"
                                             variant="outlined"
@@ -213,6 +222,7 @@ const BookingForm = () => {
                                     name="description"
                                     render={({ field }) => (
                                         <TextField
+                                            required
                                             fullWidth
                                             multiline
                                             value={field.value}
