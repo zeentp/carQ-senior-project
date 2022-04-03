@@ -204,6 +204,8 @@ const BookingForm = () => {
                                     name="telephone"
                                     render={({ field }) => (
                                         <TextField
+                                        error
+                                        helperText={'test'}
                                             required
                                             id="telephone"
                                             label="telephone"
