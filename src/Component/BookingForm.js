@@ -129,6 +129,7 @@ const BookingForm = () => {
                                     name="emailAddress"
                                     render={({ field }) => (
                                         <TextField
+                                            required
                                             id="email"
                                             label="Email"
                                             variant="outlined"
@@ -204,9 +205,13 @@ const BookingForm = () => {
                                     name="telephone"
                                     render={({ field }) => (
                                         <TextField
-                                        error
-                                        helperText={'test'}
+                                            error
+                                            helperText={'test'}
                                             required
+                                            error={field.value.match(/^\d+$/) === null && field.value !== '' ? true : field.value.length === 10 || field.value.length === 0 ? null : true}
+                                            // helperText={field.value.length === 10 || field.value.length === 0 ? null : '0'}
+                                            helperText={field.value.match(/^\d+$/) === null && field.value !== '' ? 'please input number only' : field.value.length === 10 || field.value.length === 0 ? null : 'please fill 10 digits'}
+                                            // helperText={field.value.match(/^\d+$/) === null ? field.value !== '' ? 'plase input number only' : field.value.length === 10 || field.value.length === 0 ? null : '0' : '2'}
                                             id="telephone"
                                             label="telephone"
                                             variant="outlined"
