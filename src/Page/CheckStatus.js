@@ -47,7 +47,7 @@ export default function CheckStatus() {
                 (result) => {
                     console.log(result)
                     const list = result.data.map((d) => d);
-                    setUser(list);      
+                    setUser(list);
                     setIsLoading(false)
                     if (list.length !== 0) {
                         setAvaliable('found')
@@ -67,7 +67,7 @@ export default function CheckStatus() {
     }
     const handleSubmit = () => {
         setIsLoading(true)
-        if (telephone.length === 10) {
+        if (telephone.length === 10 && telephone.match(/^\d+$/) !== null) {
             getAppointment()
             //     if (user.length !== 0) {
             //         setAvaliable('found')
@@ -79,9 +79,11 @@ export default function CheckStatus() {
             //     setAvaliable('empty')
             //     setAlertOpen(true)
         } else {
+
             setAvaliable('empty')
             setAlertOpen(true)
             setIsLoading(false)
+
         }
         console.log(isAvaliable)
     }
@@ -125,7 +127,9 @@ export default function CheckStatus() {
 
 
     return (
-        <Box>
+        <Box sx={{
+            fontFamily: 'Raleway', bgcolor:'gray'
+        }}>
             <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
                 {
                     isAvaliable === 'notFound' ? <Alert onClose={handleAlertClose} severity="error" sx={{ width: '100%' }}>
@@ -138,18 +142,18 @@ export default function CheckStatus() {
 
             </Snackbar>
             <MainLayout>
-                <Box justifyContent={'center'} display={'flex'} sx={{ pt: 3, pb: 3}}>
-                    <Grid  spacing={2}>
+                <Box justifyContent={'center'} display={'flex'} sx={{ pt: 3, pb: 3 }}>
+                    <Grid spacing={2}>
                         <Box>
                             <Grid pt={15} pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
-                                <Stack  direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
+                                <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
                                     <Typography textAlign={'center'} variant="h2"  > Tracking</Typography>
                                 </Stack>
                                 <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 2, sm: 3 }}>
                                     {/* <MainLayout isCard={true}> */}
                                     <Paper
                                         component="form"
-                                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center',width:350 ,height:'70px'}}
+                                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 350, height: '70px' }}
                                     >
                                         {/* <IconButton sx={{ p: '10px' }} type="submit" aria-label="menu">
                                         </IconButton> */}
@@ -186,78 +190,147 @@ export default function CheckStatus() {
                         </Box>
                     </Grid>
                 </Box>
-                {isLoading && <LinearProgress/>} 
+                {isLoading && <LinearProgress />}
             </MainLayout >
-            {
-                isAvaliable === 'found' ?
+            <Box sx={{ width: '100%', px: 2 ,py:2}}>
+                <Paper  elevation={6}  sx={{ backgroundColor: 'white'}}>
+                    <Box sx={{ py: 5 ,px:2}} >
+                        <Typography  variant='h4'>
+                            Appointments
+                        </Typography>
+                    </Box>
+                    <Divider></Divider>
 
-                    user.map((a) => {
-                        return (
-                            <Box>
-                                <MainLayout>
-                                    <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3}} pl={{xs:0,md:2,sm:0}} >
-                                        <Grid component={Paper} sx={{ bgcolor: "#1a2138" }} elevation={8} container spacing={2}>
-                                            <Container  >
-                                                <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
-                                                    <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
-                                                        <Grid sx={{ color: 'white' }} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
-                                                            <Typography variant="h2">Your Appointment</Typography>
-                                                            <Typography sx={{ pb: 2 }} variant="h5">id: {a.appointment_id}</Typography>
-                                                            {/* <button id="setEffectButton"> Edit </button> */}
-                                                        </Grid>
-                                                        <Grid>
-                                                            <CardContent>
+                    {/* <MainLayout isCard={true}> */}
+                    {
+                        isAvaliable === 'found' ?
 
-                                                                <Box
-                                                                    sx={{ display: 'flex', p: 1, borderRadius: 1 }}
-                                                                >
-                                                                    <Typography sx={{ flexGrow: 1, color: 'white' }} >{a.name}</Typography>
-                                                                    <Typography sx={{ flexGrow: 1, color: 'white' }} > Telephone : {formatPhone(a.telephone)}</Typography>
-                                                                    {a.status === 'booking' ? <StyleChip color='primary' label={'booking'} /> :
-                                                                        <Chip label={a.status}
-                                                                            color={a.status === 'completed' ? "success" : a.status === 'on-track' ? "primary" : a.status === 'pending' ? 'secondary' : 'error'}
-                                                                        />
-                                                                    }
-                                                                </Box>
-                                                                {/* <Grid display={'flex'} justifyContent={'flex-end'} spacing={2}>
-                                                            <Typography sx={{color:'white'}}>
-                                                                Your Booking
-                                                            </Typography>
-                                                            <Chip label="primary" color="primary" variant="outlined" />
-                                                        </Grid> */}
-                                                                <Divider sx={{ bgcolor: 'white' }}></Divider>
-                                                                <CardContent>
-                                                                    <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{ xs: 0, sm: 4 }}>
-                                                                        <Typography>
-                                                                            Brand : {a.brand}
-                                                                        </Typography>
-                                                                        <Typography>
-                                                                            PlateNumber : {a.plate_no}
-                                                                        </Typography>
-                                                                    </Stack>
-                                                                    <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{ xs: 0, sm: 4 }}>
-                                                                        <Typography>
-                                                                            Description : {a.description}
-                                                                        </Typography>
-                                                                        <Typography>
-                                                                            Date: {formatDate(a.starts_at.seconds)}
-                                                                        </Typography>
-                                                                    </Stack>
-                                                                </CardContent>
-                                                            </CardContent>
-                                                        </Grid>
-                                                    </Stack>
-                                                </Grid>
-                                            </Container>
+                            user.map((a) => {
+                                return (
+                                    <Stack  direction={{ xs: "column", sm: "column" }} px={2} spacing={1}>
+                                        <Grid display='flex'>
+                                            {a.status === 'booking' ? <StyleChip color='primary' label={'booking'} /> :
+                                                <Chip label={a.status}
+                                                    color={a.status === 'completed' ? "success" : a.status === 'on-track' ? "primary" : a.status === 'pending' ? 'secondary' : 'error'}
+                                                />
+                                            }
+                                            <Typography>{a.name} </Typography>
+
                                         </Grid>
-                                    </Box>
-                                </MainLayout>
-                            </Box>
-                        );
-                    })
+                                        <Stack direction={{ xs: "column", sm: "row" }} >
+                                            <Stack>
+                                                <Typography>
+                                                    Brand : {a.brand}
+                                                </Typography>
+                                                <Typography>
+                                                    Plate Number : {a.plate_no}
+                                                </Typography>
+                                            </Stack>
+                                            <Stack pl={7}>
+                                                <Typography>
+                                                    Description : {a.description}
+                                                </Typography>
+                                                <Typography>
+                                                    Date: {formatDate(a.starts_at.seconds)}
+                                                </Typography>
+                                            </Stack>
+                                        </Stack>
 
-                    : <Box></Box>
-            }
+                                        <Divider></Divider>
+
+                                    </Stack>
+
+                                    // <Typography>
+                                    //     {a.name}
+                                    // </Typography>
+
+
+                                    // <Box>
+                                    //     <MainLayout>
+                                    //         <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3}} pl={{xs:0,md:2,sm:0}} >
+                                    //             <Grid component={Paper} sx={{ bgcolor: "#1a2138" }} elevation={8} container spacing={2}>
+                                    //                 <Container  >
+                                    //                     <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
+                                    //                         <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
+                                    //                             <Grid sx={{ color: 'white' }} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
+                                    //                                 <Typography variant="h2">{a.name}</Typography>
+                                    //                                 <Typography sx={{ pb: 2 }} variant="h5">id: {a.appointment_id}</Typography>
+                                    //                                 {/* <button id="setEffectButton"> Edit </button> */}
+                                    //                             </Grid>
+                                    //                             <Grid>
+                                    //                                 <CardContent>
+
+                                    //                                     <Box
+                                    //                                         // sx={{ display: 'flex', p: 1, borderRadius: 1 }}
+                                    //                                     >
+                                    //                                           <Stack>
+
+                                    //                                             {a.status === 'booking' ? <StyleChip color='primary' label={'booking'} /> :
+                                    //                                                 <Chip label={a.status}
+                                    //                                                     color={a.status === 'completed' ? "success" : a.status === 'on-track' ? "primary" : a.status === 'pending' ? 'secondary' : 'error'}
+                                    //                                                 />
+                                    //                                             }
+                                    //                                             </Stack>
+                                    //                                         {/* <Typography sx={{ flexGrow: 1, color: 'white' }} >{a.name}</Typography> */}
+                                    //                                         <Typography sx={{ flexGrow: 1, color: 'white' }} > Telephone : {formatPhone(a.telephone)}</Typography>
+
+                                    //                                     </Box>
+                                    //                                     {/* <Grid display={'flex'} justifyContent={'flex-end'} spacing={2}>
+                                    //                                 <Typography sx={{color:'white'}}>
+                                    //                                     Your Booking
+                                    //                                 </Typography>
+                                    //                                 <Chip label="primary" color="primary" variant="outlined" />
+                                    //                             </Grid> */}
+                                    //                                     <Divider sx={{ bgcolor: 'white' }}></Divider>
+                                    //                                     <CardContent>
+                                    //                                     <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "column" }} spacing={{ xs: 0, sm: 0}}>
+                                    //                                             <Typography>
+                                    //                                                 Brand : {a.brand}
+                                    //                                             </Typography>
+                                    //                                             <Typography>
+                                    //                                                 PlateNumber : {a.plate_no}
+                                    //                                             </Typography>
+                                    //                                             <Typography>
+                                    //                                                 Brand : {a.brand}
+                                    //                                             </Typography>
+                                    //                                             <Typography>
+                                    //                                                 PlateNumber : {a.plate_no}
+                                    //                                             </Typography>
+                                    //                                         </Stack>
+                                    //                                         {/* <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{ xs: 0, sm: 4 }}>
+                                    //                                             <Typography>
+                                    //                                                 Brand : {a.brand}
+                                    //                                             </Typography>
+                                    //                                             <Typography>
+                                    //                                                 PlateNumber : {a.plate_no}
+                                    //                                             </Typography>
+                                    //                                         </Stack>
+                                    //                                         <Stack sx={{ color: 'white' }} direction={{ xs: "column", sm: "row" }} spacing={{ xs: 0, sm: 4 }}>
+                                    //                                             <Typography>
+                                    //                                                 Description : {a.description}
+                                    //                                             </Typography>
+                                    //                                             <Typography>
+                                    //                                                 Date: {formatDate(a.starts_at.seconds)}
+                                    //                                             </Typography>
+                                    //                                         </Stack> */}
+                                    //                                     </CardContent>
+                                    //                                 </CardContent>
+                                    //                             </Grid>
+                                    //                         </Stack>
+                                    //                     </Grid>
+                                    //                 </Container>
+                                    //             </Grid>
+                                    //         </Box>
+                                    //     </MainLayout>
+                                    // </Box>
+                                );
+                            })
+
+                            : <Box></Box>
+                    }
+                </Paper>
+            </Box>
+            {/* </MainLayout> */}
 
 
             {/* // <MainLayout isCard={true}>
