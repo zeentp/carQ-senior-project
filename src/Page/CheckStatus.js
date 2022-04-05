@@ -125,7 +125,7 @@ export default function CheckStatus() {
 
 
     return (
-        <div>
+        <Box>
             <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
                 {
                     isAvaliable === 'notFound' ? <Alert onClose={handleAlertClose} severity="error" sx={{ width: '100%' }}>
@@ -137,44 +137,20 @@ export default function CheckStatus() {
                 }
 
             </Snackbar>
-
             <MainLayout>
-
-                <Box justifyContent={'center'} sx={{ pt: 3, pb: 3, bgcolor: "gray" }}>
-                    <Grid container spacing={2}>
-                        <Container  >
-                            <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
-                                <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
-                                    <Typography variant="h2" color={'white'} > Tracking</Typography>
+                <Box justifyContent={'center'} display={'flex'} sx={{ pt: 3, pb: 3}}>
+                    <Grid  spacing={2}>
+                        <Box>
+                            <Grid pt={15} pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
+                                <Stack  direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
+                                    <Typography textAlign={'center'} variant="h2"  > Tracking</Typography>
                                 </Stack>
                                 <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 2, sm: 3 }}>
-                                    {/* <TextField
-                                        fullWidth={{sm:false,md:false,xs:false }}
-                                        sx={{color:'red'}}
-                                        placeholder="ค้นหา"
-                                        size="small"
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton  >
-                                                        <SearchIcon />
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                    /> */}
-                                    {/* <Button
-                                        onClick={handleOnClick}
-                                        type="submit"
-                                        variant="contained"
-                                    >
-                                        Search
-                                    </Button> */}
+                                    {/* <MainLayout isCard={true}> */}
                                     <Paper
                                         component="form"
-                                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', }}
+                                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center',width:350 ,height:'70px'}}
                                     >
-                                 
                                         {/* <IconButton sx={{ p: '10px' }} type="submit" aria-label="menu">
                                         </IconButton> */}
                                         <InputBase
@@ -204,51 +180,22 @@ export default function CheckStatus() {
                                         <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
                                         </IconButton>
                                     </Paper>
+                                    {/* </MainLayout> */}
                                 </Stack>
                             </Grid>
-                        </Container>
+                        </Box>
                     </Grid>
                 </Box>
-                {/* <Box display={'grid'} justifyContent={'center'} sx={{ pt: 5 }}>
-                    <Grid container spacing={2}>
-                        <Stack direction={{ xs: "column", sm: "column", md: "row" }} spacing={2}>
-                            <TextField
-                                placeholder="ค้นหา"
-                                size="small"
-                                InputProps={{
-                                    startAdornment: (
-                                        <InputAdornment position="start">
-                                            <IconButton  >
-                                                <SearchIcon />
-                                            </IconButton>
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                            <Button
-                                onClick={handleOnClick}
-                                type="submit"
-                                variant="contained"
-                            >
-                                Search
-                            </Button>
-                        </Stack>
-                    </Grid>
-                </Box> */}
-                {/* {isloading === true ?
-                    <LinearProgress /> : null
-                } */}
                 {isLoading && <LinearProgress/>} 
             </MainLayout >
             {
                 isAvaliable === 'found' ?
 
                     user.map((a) => {
-
                         return (
                             <Box>
                                 <MainLayout>
-                                    <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3, }}>
+                                    <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3}} pl={{xs:0,md:2,sm:0}} >
                                         <Grid component={Paper} sx={{ bgcolor: "#1a2138" }} elevation={8} container spacing={2}>
                                             <Container  >
                                                 <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
@@ -333,7 +280,7 @@ export default function CheckStatus() {
         //         </CardContent>
         //     </Grid>
         // </MainLayout>  */}
-        </div >
+        </Box >
     )
 
 }
