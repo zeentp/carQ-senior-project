@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -22,6 +22,17 @@ import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import axios from "axios";
+
+const getRes=()=>{
+  axios.get('/api/notifyredirect/', (req, res) => {
+    const userId = req.query.state
+    const code = req.query.code
+    console.log(userId)
+    console.log(code)
+   })
+}
+
 
 function createData(name, status, email, telephone) {
   return {
@@ -141,6 +152,10 @@ function EnhancedTableHead(props) {
     onRequestSort(event, property);
   };
 
+  useEffect(() => {
+    getRes()
+  }, [
+  ]);
   return (
     <TableHead>
       <TableRow>
