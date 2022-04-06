@@ -638,7 +638,7 @@ const LinaerStepper = () => {
         window.location.href = "/";
     };
     return (
-        <div>
+        <Box>
             <Stepper sx={{ pt: 5 }} alternativeLabel activeStep={activeStep}>
                 {steps.map((step, index) => {
                     const labelProps = {};
@@ -694,9 +694,11 @@ const LinaerStepper = () => {
                 <>
                     <FormProvider {...methods}>
                         <form onSubmit={methods.handleSubmit(handleNext)}>
+                            <Box pt={8} >
                             {getStepContent(activeStep)}
-                            <MainLayout iscard={true}>
-                                <Container sx={{ display: 'flex', justifyContent: 'center', pt: 3 }}>
+                            </Box>
+                            <MainLayout iscard={true} >
+                                <Container sx={{ display: 'flex', justifyContent: 'center', pt: 6 }}>
                                     <Button
                                         className={classes.button}
                                         disabled={activeStep === 0}
@@ -732,7 +734,7 @@ const LinaerStepper = () => {
                     </FormProvider>
                 </>
             )}
-        </div>
+        </Box>
     );
 };
 
