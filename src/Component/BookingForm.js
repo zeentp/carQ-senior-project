@@ -226,6 +226,39 @@ const BookingForm = () => {
                             <Grid pt={2} >
                                 <Controller
                                     control={control}
+                                    name="issue"
+                                    render={({ field }) => (
+                                        <FormControl>
+                                            <Box>
+                                                <InputLabel id="demo-simple-select-label">
+                                                    Issue
+                                                </InputLabel>
+                                                <Select
+                                                    required
+                                                    // error ={isEmpty}
+                                                    // helperText={ isEmpty === true ? "please fill the form":''}
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    // value={carbrand}
+                                                    defaultValue={field.value}
+                                                    label="Issue"
+                                                    {...field}
+                                                    value={field.value}
+                                                // onChange={(e) => setCarBrand(e.target.value)}
+                                                >
+                                                    <MenuItem value={"ไดชาต์เสีย"}>ไดชาต์เสีย</MenuItem>
+                                                    <MenuItem value={"แอร์ไม่เย็น"}>แอร์ไม่เย็น</MenuItem>
+                                                    <MenuItem value={"เช็คสภาพรถ"}>เช็คสภาพรถ</MenuItem>
+                                                    <MenuItem value={"สตารต์ไม่ติด"}>สตารต์ไม่ติด</MenuItem>
+                                                </Select>
+                                            </Box>
+                                        </FormControl>
+                                    )}
+                                />
+                            </Grid>
+                            <Grid pt={2} >
+                                <Controller
+                                    control={control}
                                     name="description"
                                     render={({ field }) => (
                                         <TextField
@@ -242,6 +275,7 @@ const BookingForm = () => {
                                     )}
                                 />
                             </Grid>
+
 
                         </Grid>
                     </Grid>

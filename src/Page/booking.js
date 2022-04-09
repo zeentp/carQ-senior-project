@@ -58,7 +58,7 @@ const style = {
     bgcolor: 'background.paper',
     // border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    p: 3,
 };
 
 
@@ -193,297 +193,13 @@ const ContactForm = () => {
         </>
     );
 };
-// const BookingForm = () => {
 
-//     useEffect(() => {
-//     }, [
-//     ]);
-//     const { control } = useFormContext();
-//     const [phoneNumber, setPhoneNumber] = React.useState("");
-//     const handlePhoneChange = (event) => {
-//         console.log(phoneNumber)
-//         var val = event.target.value.replace(/[^0-9]/g, "");
-//         if (val[0] === "0") {
-//             let a = val;
-//             a = val.slice(0, 3);
-//             a += val.length > 3 ? "-" + val.slice(3, 6) : "";
-//             a += val.length > 6 ? "-" + val.slice(6) : "";
-//             val = a;
-//         } else {
-//             val = "";
-//         }
 
-//         // value = val
-//         setPhoneNumber(val)
-//         // console.log(value)
-//         return val
-//     };
+function dateToStringFuc(date, time) {
+    let dateToString = date.toString()
+    return formatDate(dateToString)
 
-//     return (
-//         <MainLayout isCard={true}>
-//             <Card>
-//                 <CardHeader title="Make Appointment" />
-//                 <CardContent>
-//                     <Grid item xs={12} md={12} lg={12}
-//                         sx={{
-//                             "& .MuiSelect-select": { width: "20ch" },
-//                         }}
-//                     >
-//                         <Grid >
-//                             <Stack
-//                                 direction={{ xs: "column", sm: "row" }}
-//                                 spacing={2}>
-
-//                                 <Controller
-//                                     control={control}
-//                                     name="firstName"
-//                                     render={({ field }) => (
-//                                         <TextField
-//                                             required
-//                                             id="first-name"
-//                                             label="First Name"
-//                                             variant="outlined"
-//                                             placeholder="Enter Your First Name"
-//                                             {...field}
-//                                         />
-//                                     )}
-//                                 />
-//                                 <Controller
-//                                     control={control}
-//                                     name="lastName"
-//                                     render={({ field }) => (
-//                                         <TextField
-//                                             required
-//                                             id="last-name"
-//                                             label="Last Name"
-//                                             variant="outlined"
-//                                             placeholder="Enter Your Last Name"
-//                                             // margin="normal"
-//                                             {...field}
-//                                         />
-//                                     )}
-//                                 />
-//                             </Stack>
-//                         </Grid>
-//                         <Grid pt={2} >
-//                             <Stack
-//                                 direction={{ xs: "column", sm: "row" }}
-//                                 spacing={2}>
-//                                 <Controller
-//                                     control={control}
-//                                     name="plateNumber"
-//                                     render={({ field }) => (
-//                                         <TextField
-//                                             required
-//                                             id="Plate-number"
-//                                             label="Plate Number"
-//                                             variant="outlined"
-//                                             placeholder="Enter Your Plate Number"
-//                                             {...field}
-//                                         />
-//                                     )}
-//                                 />
-//                                 <Controller
-//                                     control={control}
-//                                     name="emailAddress"
-//                                     render={({ field }) => (
-//                                         <TextField
-//                                             id="email"
-//                                             label="Email"
-//                                             variant="outlined"
-//                                             placeholder="Enter Your Email"
-//                                             {...field}
-//                                         />
-//                                     )}
-//                                 />
-//                             </Stack>
-//                         </Grid>
-//                         <Grid pt={2} >
-//                             <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-//                                 <Controller
-//                                     control={control}
-//                                     name="brand"
-//                                     render={({ field }) => (
-//                                         <FormControl>
-//                                             <Box>
-//                                                 <InputLabel id="demo-simple-select-label">
-//                                                     Car brand
-//                                                 </InputLabel>
-//                                                 <Select
-//                                                     required
-
-//                                                     // error ={field.value.match(/^\d+$/)===null ?  'test': '' }
-//                                                     // helperText={ isEmpty === true ? "please fill the form":''}
-//                                                     labelId="demo-simple-select-label"
-//                                                     id="demo-simple-select"
-//                                                     // value={carbrand}
-//                                                     defaultValue={field.value}
-//                                                     label="car brand"
-//                                                     {...field}
-//                                                     value={field.value}
-//                                                 // onChange={(e) => setCarBrand(e.target.value)}
-//                                                 >
-//                                                     <MenuItem value={"Honda"}>Honda</MenuItem>
-//                                                     <MenuItem value={"Yamaha"}>Yamaha</MenuItem>
-//                                                     <MenuItem value={"Toyota"}>Toyota</MenuItem>
-//                                                     <MenuItem value={"Nissan"}>Nissan</MenuItem>
-//                                                 </Select>
-//                                             </Box>
-//                                         </FormControl>
-//                                     )}
-
-//                                 />
-//                                 {/* <Controller
-//                                     name="reactMaskInput"
-//                                     control={control}
-//                                     render={({ field: { onChange, value } }) => (
-//                                         <InputMask mask="99/99/9999" value={value} onChange={onChange}>
-
-//                                         </InputMask>
-//                                     )}
-//                                 /> */}
-//                                 {/* <Controller
-//                                     control={control}
-//                                     name="telephone"
-//                                     render={({field}) => (
-//                                         <TextField
-//                                             onChange={(e) => handlePhoneChange(e, field)}
-//                                             id="telephone"
-//                                             label="telephone"
-//                                             variant="outlined"
-//                                             value={phoneNumber}
-//                                             placeholder="Enter Your Telephone"
-//                                             inputProps={{ maxLength: 12 }}
-//                                         // {...field}
-//                                         />
-//                                     )} 
-//                                  /> */}
-//                                 <Controller
-//                                     control={control}
-//                                     name="telephone"
-//                                     render={({ field }) => (
-//                                         <TextField
-//                                         // error={isTelError}
-//                                         error ={field.value.match(/^\d+$/)===null ? field.value !== '' ? true : false:false}
-//                                         helperText={field.value.match(/^\d+$/)===null ? field.value !== ''? 'plase input number only' :null:null }
-//                                             required
-//                                             id="telephone"
-//                                             label="telephone"
-//                                             variant="outlined"
-//                                             placeholder="Enter Your Telephone"
-//                                             inputProps={{ maxLength: 10 }}
-//                                             // onInput = {(e) => handlePhoneChange(e)}
-//                                             {...field}
-//                                         />
-//                                     )}
-//                                 />
-//                             </Stack>
-//                             <Grid pt={2} >
-//                                 <Controller
-//                                     control={control}
-//                                     name="description"
-//                                     render={({ field }) => (
-//                                         <TextField
-//                                             required
-//                                             fullWidth
-//                                             multiline
-//                                             value={field.value}
-//                                             id="description"
-//                                             label="description"
-//                                             variant="outlined"
-//                                             placeholder="Enter Your description"
-//                                             {...field}
-//                                         />
-//                                     )}
-//                                 />
-//                             </Grid>
-
-//                         </Grid>
-//                     </Grid>
-
-//                 </CardContent>
-//             </Card>
-//         </MainLayout>
-//     );
-//                                     }
-const PersonalForm = () => {
-    const { control } = useFormContext();
-    const [value, setValue] = React.useState(new Date());
-    const holiday = [{
-        date: new Date(),
-    }, {
-        date2: new Date() + 1
-    }]
-    useEffect(() => {
-        console.log(holiday)
-    }, [])
-
-    return (
-        <>
-            <Controller
-                control={control}
-                name="bookingDate"
-                render={({ field }) => (
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <StaticDatePicker
-                            disablePast
-                            // disableCloseOnSelect={({ date }) => {
-                            //     holiday.map((d) => {
-                            //         if (d.date.getDate() === date.getDate()) {
-                            //             return true
-                            //         }
-                            //         return false
-                            //     })
-                            // }}
-                            displayStaticWrapperAs="desktop"
-                            openTo="day"
-                            // mDate={'03-29-2021'}
-                            excludeDates={'03-29-2021'}
-
-                            // value={value}
-                            {...field}
-                        // onChange={(newValue) => {
-                        //     setValue(newValue);
-                        // }}
-                        // renderInput={(params) => <TextField {...params} />}
-                        />
-                    </LocalizationProvider>
-                )}
-            />
-            <Controller
-                control={control}
-                name="address2"
-                render={({ field }) => (
-                    <TextField
-                        id="address2"
-                        label="Address 2"
-                        variant="outlined"
-                        placeholder="Enter Your Address 2"
-                        fullWidth
-                        margin="normal"
-                        {...field}
-                    />
-                )}
-            />
-            <Controller
-                control={control}
-                name="country"
-                render={({ field }) => (
-                    <TextField
-                        id="country"
-                        label="Country"
-                        variant="outlined"
-                        placeholder="Enter Your Country Name"
-                        fullWidth
-                        margin="normal"
-                        {...field}
-                    />
-                )}
-            />
-        </>
-    );
-};
-
+}
 function formatDate(str) {
     var date = new Date(str),
         mnth = ("0" + (date.getMonth() + 1)).slice(-2),
@@ -502,37 +218,78 @@ const ModalData = (bookingData, onStepChange) => {
     return (
         <div>
             <Box sx={{ py: 2, px: 1, }} >
-                <Typography sx={{ fontWeight: 'bold' }}>
-                    Date & Time
-                </Typography>
-                <Stack display={'flex'} spacing={1} direction={'row'}>
-                    <EventNoteIcon />
-                    <Typography>
-                        {formatDate(booking_date.toString()) + ',' + bookingData.data.bookingTime}
+                <Box
+                    sx={{ display: 'flex', bgcolor: 'background.paper', borderRadius: 1 }}
+                >
+                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }}>Name</Typography>
+                    <Typography> {bookingData.data.firstName + ' ' + bookingData.data.lastName}</Typography>
+                </Box>
+                <Box
+                    sx={{ display: 'flex', bgcolor: 'background.paper', borderRadius: 1 }}
+                >
+                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                        Telephone
                     </Typography>
-                    <Link
-                        component="button"
-                        variant="body2"
-                    // onClick={
-                    //     handleStepChange}
-                    >
-                        Change
-                    </Link>
+                    <Typography>
+                        {bookingData.data.telephone}
+                    </Typography>
+                </Box>
+                <Box
+                    sx={{ display: 'flex' }}
+                >
+                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold', pb: 2 }}>
+                        Email
+                    </Typography>
+                    <Typography>
+                        {bookingData.data.emailAddress}
+                    </Typography>
+
+                </Box>
+                <Box
+                    sx={{ display: 'flex' }}
+                >
+                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                        Plate Number
+                    </Typography>
+                    <Typography>
+                        {bookingData.data.plateNumber}
+                    </Typography>
+                </Box>
+                <Stack spacing={3}>
+                    <Box></Box>
                 </Stack>
-                <Typography sx={{ fontWeight: 'bold' }}>
-                    Name
-                </Typography>
-                <Typography>
-                    {bookingData.data.firstName + ' ' + bookingData.data.lastName}
-                </Typography>
-                <Typography sx={{ fontWeight: 'bold' }}>
-                    Telephone
-                </Typography>
-                <Typography>
-                    {bookingData.data.telephone}
-                </Typography>
+                <Box
+                    sx={{ display: 'flex' }}
+                >
+                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                        carbrand
+                    </Typography>
+                    <Typography>
+                        {bookingData.data.brand}
+                    </Typography>
+                </Box>
+                <Box
+                    sx={{ display: 'flex' }}
+                >
+                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                        Issue
+                    </Typography>
+                    <Typography>
+                        {bookingData.data.issue}
+                    </Typography>
+                </Box>
+                <Box
+                    sx={{ display: 'flex' }}
+                >
+                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                        Description
+                    </Typography>
+                    <Typography>
+                        {bookingData.data.description}
+                    </Typography>
+                </Box>
             </Box>
-            <Divider></Divider>
+            {/* <Divider></Divider> */}
 
         </div>
     );
@@ -614,6 +371,7 @@ const LinaerStepper = () => {
             firstName: "",
             lastName: "",
             emailAddress: "",
+            issue: "",
             // nickName: "",
             // phoneNumber: "",
             telephone: "",
@@ -652,7 +410,6 @@ const LinaerStepper = () => {
             let dateToString = data.bookingDate.toString()
             let time = data.bookingDate.toTimeString();
             let booking_date = new Date(dateToString.replace(time, data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
-            console.log('1');
             handleOpen()
 
             var body = {
@@ -668,6 +425,7 @@ const LinaerStepper = () => {
                 // starts_at: data.bookingDate,
                 startAt: booking_date,
             };
+            console.log(body)
         }
         // let dateToString = data.bookingDate.toString()
         // let time = data.bookingDate.toTimeString();
@@ -676,7 +434,6 @@ const LinaerStepper = () => {
     }
 
     const handleNext = (data) => {
-        console.log(1)
         if (activeStep == steps.length - 1) {
             if (data.telephone.match(/^\d+$/) !== null) {
                 handleOpen()
@@ -835,21 +592,26 @@ const LinaerStepper = () => {
                                             Booking Details
                                         </Typography>
                                         <Divider></Divider>
-                                        <Stack display={'flex'} spacing={1} direction={'row'}>
-                                            <EventNoteIcon />
-                                            <Typography>
-                                                {/* {formatDate(methods.getValues('bookingDate')) + ',' + methods.getValues('bookingTime')} */}
+                                        <Box pl={1}>
+                                            <Typography sx={{ fontWeight: 'bold' }}>
+                                                Date & Time
                                             </Typography>
-                                            <Link
-                                                component="button"
-                                                variant="body2"
-                                                onClick={changeDate}
-                                            >
-                                                Change
-                                            </Link>
-                                        </Stack>
+                                            <Stack display={'flex'} spacing={1} direction={'row'}>
+                                                <EventNoteIcon />
+                                                <Typography>
+                                                    {dateToStringFuc(methods.getValues('bookingDate')) + ',' + methods.getValues('bookingTime')}
+                                                </Typography>
+                                                <Link
+                                                    component="button"
+                                                    variant="body2"
+                                                    onClick={changeDate}
+                                                >
+                                                    Change
+                                                </Link>
+                                            </Stack>
+                                        </Box>
                                         <ModalData data={methods.getValues()}></ModalData>
-                                        <Container sx={{ display: 'flex', justifyContent: 'center', pt: 6 }}>
+                                        <Container sx={{ display: 'flex', justifyContent: 'center', pt: 1 }}>
                                             <Button
                                                 className={classes.button}
                                                 onClick={handleClose}
