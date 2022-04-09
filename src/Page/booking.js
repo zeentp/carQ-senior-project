@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import InputMask from "react-input-mask";
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import BookingForm from "../Component/BookingForm";
 import TimeForm from "../Component/TimeForm";
+import AlertBar from "../Component/AlertBar"
 import { v4 as uuid } from 'uuid';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import { URL as url } from '../Constants';
 import {
     Typography,
     TextField,
+    Modal,
     Button,
     Stepper,
     Step,
@@ -17,8 +20,10 @@ import {
     Grid,
     Stack,
     Card,
+    Link,
     CardHeader,
     CardContent,
+    Divider,
     Box,
     FormControl,
     MenuItem,
@@ -30,7 +35,7 @@ import { useTheme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import DateForm from "../Component/DateForm";
 import "../Css/Card.css"
-import BasicModal from "../Component/Modal";
+// import BasicModal from "../Component/Modal";
 import {
     useForm,
     Controller,
@@ -44,6 +49,18 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
     },
 }));
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    // border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
 
 function getSteps() {
     return [
@@ -53,22 +70,24 @@ function getSteps() {
     ];
 }
 
+
+
 const BasicForm = () => {
     const { control } = useFormContext();
-  const [phoneNumber, setPhoneNumber] = React.useState("");
-  const handlePhoneChange = (event) => {
-    var val = event.target.value.replace(/[^0-9]/g, "");
-    if (val[0] === "0") {
-      let a = val;
-      a = val.slice(0, 3);
-      a += val.length > 3 ? "-" + val.slice(3, 6) : "";
-      a += val.length > 6 ? "-" + val.slice(6) : "";
-      val = a;
-    } else {
-      val = "";
-    }
-    setPhoneNumber(val);
-  };
+    const [phoneNumber, setPhoneNumber] = React.useState("");
+    const handlePhoneChange = (event) => {
+        var val = event.target.value.replace(/[^0-9]/g, "");
+        if (val[0] === "0") {
+            let a = val;
+            a = val.slice(0, 3);
+            a += val.length > 3 ? "-" + val.slice(3, 6) : "";
+            a += val.length > 6 ? "-" + val.slice(6) : "";
+            val = a;
+        } else {
+            val = "";
+        }
+        setPhoneNumber(val);
+    };
     return (
         <>
             <Controller
@@ -319,7 +338,7 @@ const ContactForm = () => {
 //                                     control={control}
 //                                     render={({ field: { onChange, value } }) => (
 //                                         <InputMask mask="99/99/9999" value={value} onChange={onChange}>
-                                         
+
 //                                         </InputMask>
 //                                     )}
 //                                 /> */}
@@ -465,6 +484,59 @@ const PersonalForm = () => {
     );
 };
 
+function formatDate(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    return [day, mnth, date.getFullYear(),].join("-");
+}
+const ModalData = (bookingData, onStepChange) => {
+    // console.log(onStepChange)
+    // const handleStepChange = useCallback(event => {
+    //     onStepChange(0)
+    // }, [onStepChange])
+
+    let dateToString = bookingData.data.bookingDate.toString()
+    let time = bookingData.data.bookingDate.toTimeString();
+    let booking_date = new Date(dateToString.replace(time, bookingData.data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
+    return (
+        <div>
+            <Box sx={{ py: 2, px: 1, }} >
+                <Typography sx={{ fontWeight: 'bold' }}>
+                    Date & Time
+                </Typography>
+                <Stack display={'flex'} spacing={1} direction={'row'}>
+                    <EventNoteIcon />
+                    <Typography>
+                        {formatDate(booking_date.toString()) + ',' + bookingData.data.bookingTime}
+                    </Typography>
+                    <Link
+                        component="button"
+                        variant="body2"
+                    // onClick={
+                    //     handleStepChange}
+                    >
+                        Change
+                    </Link>
+                </Stack>
+                <Typography sx={{ fontWeight: 'bold' }}>
+                    Name
+                </Typography>
+                <Typography>
+                    {bookingData.data.firstName + ' ' + bookingData.data.lastName}
+                </Typography>
+                <Typography sx={{ fontWeight: 'bold' }}>
+                    Telephone
+                </Typography>
+                <Typography>
+                    {bookingData.data.telephone}
+                </Typography>
+            </Box>
+            <Divider></Divider>
+
+        </div>
+    );
+}
 const PaymentForm = () => {
     const { control } = useFormContext();
     return (
@@ -525,14 +597,16 @@ function getStepContent(step) {
         case 1:
             return <TimeForm />;
         case 2:
-            return <BookingForm/>;
+            return <BookingForm />;
         // case 3:
         //     return <PersonalForm />;
         default:
             return "unknown step";
     }
 }
+const changeBookingDate = () => {
 
+}
 const LinaerStepper = () => {
     const classes = useStyles();
     const methods = useForm({
@@ -556,6 +630,8 @@ const LinaerStepper = () => {
     });
     const [activeStep, setActiveStep] = useState(0);
     const [skippedSteps, setSkippedSteps] = useState([]);
+    const [open, setOpen] = React.useState(false);
+
     const [isTelError, setIsTelError] = useState(false);
     const steps = getSteps();
     const appointment_id = uuid();
@@ -570,15 +646,16 @@ const LinaerStepper = () => {
         return skippedSteps.includes(step);
     };
 
-    const handleNext = (data) => {
-      let dateToString =  data.bookingDate.toString()
-      let time = data.bookingDate.toTimeString();
-      let booking_date = new Date (dateToString.replace(time, data.bookingTime+":00 GMT+0700 (Indochina Time)"));
-        console.log(booking_date);
-        if (activeStep == steps.length - 1 ) {
-            if(data.telephone.match(/^\d+$/)!==null && data.telephone.length === 10){
-            console.log('postApi');
-            var data = {
+    const handleSubmitData = () => {
+        let data = methods.getValues();
+        if (data.telephone.match(/^\d+$/) !== null && data.telephone.length === 10) {
+            let dateToString = data.bookingDate.toString()
+            let time = data.bookingDate.toTimeString();
+            let booking_date = new Date(dateToString.replace(time, data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
+            console.log('1');
+            handleOpen()
+
+            var body = {
                 appointment_id: appointment_id,
                 user_id: user_id,
                 plate_no: data.plateNumber,
@@ -591,28 +668,71 @@ const LinaerStepper = () => {
                 // starts_at: data.bookingDate,
                 startAt: booking_date,
             };
-            axios.post(url + "/a/createDetail", data).then((res) => {
-                console.log(res);
-            });
-            setActiveStep(activeStep + 1);
+        }
+        // let dateToString = data.bookingDate.toString()
+        // let time = data.bookingDate.toTimeString();
+        // let booking_date = new Date(dateToString.replace(time, data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
+        console.log('postApi');
+    }
+
+    const handleNext = (data) => {
+        console.log(1)
+        if (activeStep == steps.length - 1) {
+            if (data.telephone.match(/^\d+$/) !== null) {
+                handleOpen()
+            }
+            // if (data.telephone.match(/^\d+$/) !== null && data.telephone.length === 10) {
+            //     let dateToString = data.bookingDate.toString()
+            //     let time = data.bookingDate.toTimeString();
+            //     let booking_date = new Date(dateToString.replace(time, data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
+            //     // submitData(data)
+            //     console.log('1');
+            //     handleOpen()
+
+            //     var data = {
+            //         appointment_id: appointment_id,
+            //         user_id: user_id,
+            //         plate_no: data.plateNumber,
+            //         brand: data.brand,
+            //         description: data.description,
+            //         firstName: data.firstName,
+            //         lastName: data.lastName,
+            //         email: data.emailAddress,
+            //         telephone: data.telephone,
+            //         // starts_at: data.bookingDate,
+            //         startAt: booking_date,
+            //     };
+            // axios.post(url + "/a/createDetail", data).then((res) => {
+            //     console.log(res);
+            // });
+            // setActiveStep(activeStep + 1);
             // fetch("https://jsonplaceholder.typicode.com/comments")
             //     .then((data) => data.json())
             //     .then((res) => {
             //         // console.log(res);
-                    setActiveStep(activeStep + 1);
-            }
+            // setActiveStep(activeStep + 1);
+            // }
             //     });
         } else {
-            setActiveStep(activeStep + 1);
-            setSkippedSteps(
-                skippedSteps.filter((skipItem) => skipItem !== activeStep)
-            );
+            if (data.bookingDate !== '') {
+                setActiveStep(activeStep + 1);
+                setSkippedSteps(
+                    skippedSteps.filter((skipItem) => skipItem !== activeStep)
+                );
+            } else {
+                setAlertOpen(true)
+            }
         }
-    
+
     };
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
+    };
+    const changeDate = () => {
+        handleClose()
+        setActiveStep(0);
+
     };
 
     const handleSkip = () => {
@@ -625,20 +745,26 @@ const LinaerStepper = () => {
     const onSubmit = (data) => {
         console.log(data);
     };
-  
-    const holiday = [{
-        date: new Date(),
-    }, {
-        date: new Date()
-    }]
+    const [alertOpen, setAlertOpen] = React.useState(false);
+
     useEffect(() => {
         // console.log(holiday)
     }, [])
     const handleOnClick = () => {
         window.location.href = "/";
     };
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const handleCloseAlert = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setAlertOpen(false);
+    };
     return (
         <Box>
+            <AlertBar title='Please Select Date ' severity="error" handleCloseFuc={handleCloseAlert} alertOpen={alertOpen} ></AlertBar>
             <Stepper sx={{ pt: 5 }} alternativeLabel activeStep={activeStep}>
                 {steps.map((step, index) => {
                     const labelProps = {};
@@ -666,7 +792,7 @@ const LinaerStepper = () => {
             </Stepper>
 
             {activeStep === steps.length ? (
-                <Box display={'grid'} justifyContent={'center'} sx={{pt:2}} >
+                <Box display={'grid'} justifyContent={'center'} sx={{ pt: 2 }} >
                     <img
                         sx={{ pt: 5 }}
                         className='responsive2'
@@ -694,8 +820,64 @@ const LinaerStepper = () => {
                 <>
                     <FormProvider {...methods}>
                         <form onSubmit={methods.handleSubmit(handleNext)}>
+                            <div>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+
+                                    <Box sx={style}>
+                                        <Typography>
+                                            {/* {methods.getValues('telephone')}
+                             */}
+                                            Booking Details
+                                        </Typography>
+                                        <Divider></Divider>
+                                        <Stack display={'flex'} spacing={1} direction={'row'}>
+                                            <EventNoteIcon />
+                                            <Typography>
+                                                {/* {formatDate(methods.getValues('bookingDate')) + ',' + methods.getValues('bookingTime')} */}
+                                            </Typography>
+                                            <Link
+                                                component="button"
+                                                variant="body2"
+                                                onClick={changeDate}
+                                            >
+                                                Change
+                                            </Link>
+                                        </Stack>
+                                        <ModalData data={methods.getValues()}></ModalData>
+                                        <Container sx={{ display: 'flex', justifyContent: 'center', pt: 6 }}>
+                                            <Button
+                                                className={classes.button}
+                                                onClick={handleClose}
+                                            >
+                                                back
+                                            </Button>
+                                            <Button
+                                                // disabled
+                                                className={classes.button}
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={handleSubmitData}
+
+                                            >
+                                                Submit
+                                            </Button>
+                                        </Container>
+                                        {/* <Typography id="modal-modal-title" variant="h6" component="h2">
+                    {methods.getValues('telephone')}
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    </Typography> */}
+                                    </Box>
+                                </Modal>
+                            </div>
                             <Box pt={8} >
-                            {getStepContent(activeStep)}
+                                {getStepContent(activeStep)}
                             </Box>
                             <MainLayout iscard={true} >
                                 <Container sx={{ display: 'flex', justifyContent: 'center', pt: 6 }}>
