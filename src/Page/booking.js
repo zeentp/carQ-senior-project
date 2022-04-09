@@ -43,6 +43,12 @@ import {
     useFormContext,
 } from "react-hook-form";
 import MainLayout from "../Component/MainLayout";
+import {
+    getTime,
+    setTime
+
+  } from "../redux/TimeSlice";
+  import { useSelector, useDispatch } from "react-redux";
 
 const availableTime = []
 const useStyles = makeStyles((theme) => ({
@@ -384,6 +390,9 @@ const LinaerStepper = () => {
     const [skippedSteps, setSkippedSteps] = useState([]);
     // const [availableTime, setAvaliableTime] = useState([]);
     const [open, setOpen] = React.useState(false);
+    // const time = useSelector(getRole);
+    const dispatch = useDispatch();
+
 
     const [isTelError, setIsTelError] = useState(false);
     const steps = getSteps();
@@ -436,7 +445,8 @@ const LinaerStepper = () => {
     }
     const getAvailableTime =(date)=>{
         // if (!personName.includes(id))
-        let a = '00:00'
+        let a = ['12','34']
+        dispatch(setTime(a));
         if (!availableTime.includes(a)){
         availableTime.push('12:00')
         availableTime.push('00:00')
@@ -458,6 +468,7 @@ const LinaerStepper = () => {
             if(activeStep === 0){
                 getAvailableTime(data.bookingDate)
                 console.log('postDate')
+                
                 
             }
             if (data.bookingDate !== '') {

@@ -30,12 +30,18 @@ import {
     FormProvider,
     useFormContext,
 } from "react-hook-form";
+import {
+   getTime,
+   setTime,
+  } from "../redux/TimeSlice";
+  import { useSelector, useDispatch } from "react-redux";
 import MainLayout from "../Component/MainLayout";
 const TimeForm = ({data}) => {
+    const dataTime = useSelector(getTime);
     const { control } = useFormContext();
     const [selected, setSelected] = React.useState(false);
     useEffect(() => {
-        console.log(data)
+        console.log(dataTime)
     }, [])
 
     const getAvailableTime=()=>{
@@ -81,7 +87,7 @@ const TimeForm = ({data}) => {
                                                         {...field}
                                                     // onChange={(e) => setCarBrand(e.target.value)}
                                                     >
-                                                          {data.map((time) => (
+                                                          {dataTime.map((time) => (
                                                 <MenuItem
                                                     key={time}
                                                     value={time}
