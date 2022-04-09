@@ -4,6 +4,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import InputMask from "react-input-mask";
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
+import PropTypes from "prop-types";
 import {
     Typography,
     TextField,
@@ -30,10 +31,24 @@ import {
     useFormContext,
 } from "react-hook-form";
 import MainLayout from "../Component/MainLayout";
-const TimeForm = () => {
+const TimeForm = ({data}) => {
     const { control } = useFormContext();
     const [selected, setSelected] = React.useState(false);
+    useEffect(() => {
+        console.log(data)
+    }, [])
 
+    const getAvailableTime=()=>{
+
+    }
+    // function getStyles(time, personName, theme) {
+    //     return {
+    //         fontWeight:
+    //             personName.indexOf(name) === -1
+    //                 ? theme.typography.fontWeightRegular
+    //                 : theme.typography.fontWeightMedium,
+    //     };
+    // }
     return (
         <>
             <MainLayout isCard={true}>
@@ -66,12 +81,23 @@ const TimeForm = () => {
                                                         {...field}
                                                     // onChange={(e) => setCarBrand(e.target.value)}
                                                     >
-                                                        <MenuItem value={"08:00"}>08:00</MenuItem>
+                                                          {data.map((time) => (
+                                                <MenuItem
+                                                    key={time}
+                                                    value={time}
+                                                    // style={getStyles(name, personName, theme)}
+                                                >
+                                                    {time}
+                                                </MenuItem>
+                                            ))}
+                                                        {/* <MenuItem value={"08:00"}>08:00</MenuItem>
                                                         <MenuItem value={"10:00"}>10:00</MenuItem>
                                                         <MenuItem value={"12:00"}>12:00</MenuItem>
                                                         <MenuItem value={"14:00"}>14:00</MenuItem>
                                                         <MenuItem value={"16:00"}>16:00</MenuItem>
                                                         <MenuItem value={"18:00"}>18:00</MenuItem>
+                                                        <MenuItem value={"00:00"}>00:00</MenuItem> */}
+
                                                     </Select>
                                                 </Box>
                                             </FormControl>
@@ -85,5 +111,10 @@ const TimeForm = () => {
             </MainLayout>
         </>
     );
+};
+TimeForm.propTypes = {
+    data: PropTypes.array,
+    
+
 };
 export default TimeForm;

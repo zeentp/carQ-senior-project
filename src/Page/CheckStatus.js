@@ -142,7 +142,7 @@ export default function CheckStatus() {
 
             </Snackbar>
             <MainLayout>
-                <Box justifyContent={'center'} display={'flex'} sx={{ pt: 3, pb: 3 }}>
+                <Box justifyContent={'center'} display={'flex'} sx={{ pt: 0, pb: 3 }}>
                     <Grid spacing={2}>
                         <Box>
                             <Grid pt={12} pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>

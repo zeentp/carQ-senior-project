@@ -98,7 +98,7 @@ const DateForm = () => {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <StaticDatePicker
                                 disablePast
-                                autoOk
+                                // autoOk
                                 displayStaticWrapperAs="desktop"
                                 openTo="day"
                                 excludeDates={'03-29-2021'}

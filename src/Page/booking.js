@@ -44,6 +44,7 @@ import {
 } from "react-hook-form";
 import MainLayout from "../Component/MainLayout";
 
+const availableTime = []
 const useStyles = makeStyles((theme) => ({
     button: {
         marginRight: theme.spacing(1),
@@ -207,11 +208,6 @@ function formatDate(str) {
     return [day, mnth, date.getFullYear(),].join("-");
 }
 const ModalData = (bookingData, onStepChange) => {
-    // console.log(onStepChange)
-    // const handleStepChange = useCallback(event => {
-    //     onStepChange(0)
-    // }, [onStepChange])
-
     let dateToString = bookingData.data.bookingDate.toString()
     let time = bookingData.data.bookingDate.toTimeString();
     let booking_date = new Date(dateToString.replace(time, bookingData.data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
@@ -272,7 +268,7 @@ const ModalData = (bookingData, onStepChange) => {
                     sx={{ display: 'flex' }}
                 >
                     <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-                        Issue
+                        Services
                     </Typography>
                     <Typography>
                         {bookingData.data.issue}
@@ -352,11 +348,9 @@ function getStepContent(step) {
         case 0:
             return <DateForm />;
         case 1:
-            return <TimeForm />;
+            return <TimeForm data={availableTime} />;
         case 2:
             return <BookingForm />;
-        // case 3:
-        //     return <PersonalForm />;
         default:
             return "unknown step";
     }
@@ -388,6 +382,7 @@ const LinaerStepper = () => {
     });
     const [activeStep, setActiveStep] = useState(0);
     const [skippedSteps, setSkippedSteps] = useState([]);
+    // const [availableTime, setAvaliableTime] = useState([]);
     const [open, setOpen] = React.useState(false);
 
     const [isTelError, setIsTelError] = useState(false);
@@ -426,51 +421,45 @@ const LinaerStepper = () => {
                 startAt: booking_date,
             };
             console.log(body)
+            axios.post(url + "/a/createDetail", body).then((res) => {
+                console.log(res);
+
+            });
+            handleClose()
+            setActiveStep(activeStep + 1);
         }
+
         // let dateToString = data.bookingDate.toString()
         // let time = data.bookingDate.toTimeString();
         // let booking_date = new Date(dateToString.replace(time, data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
         console.log('postApi');
     }
+    const getAvailableTime =(date)=>{
+        // if (!personName.includes(id))
+        let a = '00:00'
+        if (!availableTime.includes(a)){
+        availableTime.push('12:00')
+        availableTime.push('00:00')
+        availableTime.push('00:00')
+        }
 
+        // axios.post(url + "/u/checkAvailableDate",date).then((res) => {
+        //     console.log(res.data);
+        //     const list = res.data.map((d) => d);
+        //     availableTime = list
+        // });
+    }
     const handleNext = (data) => {
         if (activeStep == steps.length - 1) {
             if (data.telephone.match(/^\d+$/) !== null) {
                 handleOpen()
             }
-            // if (data.telephone.match(/^\d+$/) !== null && data.telephone.length === 10) {
-            //     let dateToString = data.bookingDate.toString()
-            //     let time = data.bookingDate.toTimeString();
-            //     let booking_date = new Date(dateToString.replace(time, data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
-            //     // submitData(data)
-            //     console.log('1');
-            //     handleOpen()
-
-            //     var data = {
-            //         appointment_id: appointment_id,
-            //         user_id: user_id,
-            //         plate_no: data.plateNumber,
-            //         brand: data.brand,
-            //         description: data.description,
-            //         firstName: data.firstName,
-            //         lastName: data.lastName,
-            //         email: data.emailAddress,
-            //         telephone: data.telephone,
-            //         // starts_at: data.bookingDate,
-            //         startAt: booking_date,
-            //     };
-            // axios.post(url + "/a/createDetail", data).then((res) => {
-            //     console.log(res);
-            // });
-            // setActiveStep(activeStep + 1);
-            // fetch("https://jsonplaceholder.typicode.com/comments")
-            //     .then((data) => data.json())
-            //     .then((res) => {
-            //         // console.log(res);
-            // setActiveStep(activeStep + 1);
-            // }
-            //     });
         } else {
+            if(activeStep === 0){
+                getAvailableTime(data.bookingDate)
+                console.log('postDate')
+                
+            }
             if (data.bookingDate !== '') {
                 setActiveStep(activeStep + 1);
                 setSkippedSteps(
@@ -505,6 +494,7 @@ const LinaerStepper = () => {
     const [alertOpen, setAlertOpen] = React.useState(false);
 
     useEffect(() => {
+        // availableTime = []   
         // console.log(holiday)
     }, [])
     const handleOnClick = () => {
@@ -592,7 +582,7 @@ const LinaerStepper = () => {
                                             Booking Details
                                         </Typography>
                                         <Divider></Divider>
-                                        <Box pl={1}>
+                                        <Box pl={1} pt={2}>
                                             <Typography sx={{ fontWeight: 'bold' }}>
                                                 Date & Time
                                             </Typography>
@@ -642,7 +632,7 @@ const LinaerStepper = () => {
                                 {getStepContent(activeStep)}
                             </Box>
                             <MainLayout iscard={true} >
-                                <Container sx={{ display: 'flex', justifyContent: 'center', pt: 6 }}>
+                                <Container sx={{ display: 'flex', justifyContent: 'center', pt: 6, pb: 6 }}>
                                     <Button
                                         className={classes.button}
                                         disabled={activeStep === 0}

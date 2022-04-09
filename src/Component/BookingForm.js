@@ -66,9 +66,9 @@ const BookingForm = () => {
                 <CardHeader title="Make Appointment" />
                 <CardContent>
                     <Grid item xs={12} md={12} lg={12}
-                        sx={{
-                            "& .MuiSelect-select": { width: "20ch" },
-                        }}
+                    // sx={{
+                    //     "& .MuiSelect-select": { width: "20ch" },
+                    // }}
                     >
                         <Grid >
                             <Stack
@@ -126,82 +126,6 @@ const BookingForm = () => {
                                 />
                                 <Controller
                                     control={control}
-                                    name="emailAddress"
-                                    render={({ field }) => (
-                                        <TextField
-                                            required
-                                            id="email"
-                                            label="Email"
-                                            variant="outlined"
-                                            placeholder="Enter Your Email"
-                                            {...field}
-                                        />
-                                    )}
-                                />
-                            </Stack>
-                        </Grid>
-                        <Grid pt={2} >
-                            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                                <Controller
-                                    control={control}
-                                    name="brand"
-                                    render={({ field }) => (
-                                        <FormControl>
-                                            <Box>
-                                                <InputLabel id="demo-simple-select-label">
-                                                    Car brand
-                                                </InputLabel>
-                                                <Select
-                                                    required
-
-                                                    // error ={isEmpty}
-                                                    // helperText={ isEmpty === true ? "please fill the form":''}
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    // value={carbrand}
-                                                    defaultValue={field.value}
-                                                    label="car brand"
-                                                    {...field}
-                                                    value={field.value}
-                                                // onChange={(e) => setCarBrand(e.target.value)}
-                                                >
-                                                    <MenuItem value={"Honda"}>Honda</MenuItem>
-                                                    <MenuItem value={"Yamaha"}>Yamaha</MenuItem>
-                                                    <MenuItem value={"Toyota"}>Toyota</MenuItem>
-                                                    <MenuItem value={"Nissan"}>Nissan</MenuItem>
-                                                </Select>
-                                            </Box>
-                                        </FormControl>
-                                    )}
-
-                                />
-                                {/* <Controller
-                                    name="reactMaskInput"
-                                    control={control}
-                                    render={({ field: { onChange, value } }) => (
-                                        <InputMask mask="99/99/9999" value={value} onChange={onChange}>
-                                         
-                                        </InputMask>
-                                    )}
-                                /> */}
-                                {/* <Controller
-                                    control={control}
-                                    name="telephone"
-                                    render={({field}) => (
-                                        <TextField
-                                            onChange={(e) => handlePhoneChange(e, field)}
-                                            id="telephone"
-                                            label="telephone"
-                                            variant="outlined"
-                                            value={phoneNumber}
-                                            placeholder="Enter Your Telephone"
-                                            inputProps={{ maxLength: 12 }}
-                                        // {...field}
-                                        />
-                                    )} 
-                                 /> */}
-                                <Controller
-                                    control={control}
                                     name="telephone"
                                     render={({ field }) => (
                                         <TextField
@@ -223,38 +147,106 @@ const BookingForm = () => {
                                     )}
                                 />
                             </Stack>
-                            <Grid pt={2} >
+                        </Grid>
+                        <Grid pt={2}>
+                            <Controller
+                                control={control}
+                                name="emailAddress"
+                                render={({ field }) => (
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        id="email"
+                                        label="Email"
+                                        variant="outlined"
+                                        placeholder="Enter Your Email"
+                                        {...field}
+                                    />
+                                )}
+                            />
+                        </Grid>
+                        <Grid pt={2} >
+                            <Stack spacing={2}>
                                 <Controller
                                     control={control}
-                                    name="issue"
+                                    name="brand"
                                     render={({ field }) => (
                                         <FormControl>
                                             <Box>
                                                 <InputLabel id="demo-simple-select-label">
-                                                    Issue
+                                                    Car brand
                                                 </InputLabel>
                                                 <Select
                                                     required
+                                                    fullWidth
                                                     // error ={isEmpty}
                                                     // helperText={ isEmpty === true ? "please fill the form":''}
                                                     labelId="demo-simple-select-label"
                                                     id="demo-simple-select"
                                                     // value={carbrand}
                                                     defaultValue={field.value}
-                                                    label="Issue"
+                                                    label="car brand"
                                                     {...field}
                                                     value={field.value}
                                                 // onChange={(e) => setCarBrand(e.target.value)}
                                                 >
-                                                    <MenuItem value={"ไดชาต์เสีย"}>ไดชาต์เสีย</MenuItem>
-                                                    <MenuItem value={"แอร์ไม่เย็น"}>แอร์ไม่เย็น</MenuItem>
-                                                    <MenuItem value={"เช็คสภาพรถ"}>เช็คสภาพรถ</MenuItem>
-                                                    <MenuItem value={"สตารต์ไม่ติด"}>สตารต์ไม่ติด</MenuItem>
+                                                    <MenuItem value={"Honda"}>Honda</MenuItem>
+                                                    <MenuItem value={"Yamaha"}>Yamaha</MenuItem>
+                                                    <MenuItem value={"Toyota"}>Toyota</MenuItem>
+                                                    <MenuItem value={"Nissan"}>Nissan</MenuItem>
+                                                    <MenuItem value={"BMW"}>BMW</MenuItem>
+                                                    <MenuItem value={"Ford"}>Ford</MenuItem>
+                                                    <MenuItem value={"Chevrolet"}>Chevrolet</MenuItem>
+                                                    <MenuItem value={"Mazda"}>Mazda</MenuItem>
+                                                    <MenuItem value={"Mitsubishi"}>Mitsubishi</MenuItem>
+                                                    <MenuItem value={"Volvo"}>Volvo</MenuItem>
+                                                    
                                                 </Select>
                                             </Box>
                                         </FormControl>
                                     )}
+
                                 />
+
+
+                            </Stack>
+
+                            <Grid pt={2} >
+                                <Stack>
+                                    <Controller
+                                        control={control}
+                                        name="issue"
+                                        render={({ field }) => (
+                                            <FormControl>
+                                                <Box>
+                                                    <InputLabel id="demo-simple-select-label">
+                                                        Services
+                                                    </InputLabel>
+                                                    <Select
+                                                        fullWidth
+                                                        required
+                                                        // error ={isEmpty}
+                                                        // helperText={ isEmpty === true ? "please fill the form":''}
+                                                        labelId="demo-simple-select-label"
+                                                        id="demo-simple-select"
+                                                        // value={carbrand}
+                                                        defaultValue={field.value}
+                                                        label="Issue"
+                                                        {...field}
+                                                        value={field.value}
+                                                    // onChange={(e) => setCarBrand(e.target.value)}
+                                                    >
+                                                        <MenuItem value={"ไดชาต์เสีย"}>ไดชาต์เสีย</MenuItem>
+                                                        <MenuItem value={"แอร์ไม่เย็น"}>แอร์ไม่เย็น</MenuItem>
+                                                        <MenuItem value={"เช็คสภาพรถ"}>เช็คสภาพรถ</MenuItem>
+                                                        <MenuItem value={"สตารต์ไม่ติด"}>สตารต์ไม่ติด</MenuItem>
+                                                    </Select>
+                                                </Box>
+                                            </FormControl>
+                                        )}
+
+                                    />
+                                </Stack>
                             </Grid>
                             <Grid pt={2} >
                                 <Controller

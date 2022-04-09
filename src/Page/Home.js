@@ -33,13 +33,13 @@ export default function Home() {
   const client_id = uuid();
   const lineUrl = 'https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=1tq7Xxsdp8l0QqfNXgC5u3&redirect_uri=http://localhost:3000/test&scope=notify&state=' + client_id
 
-  // const handleOnClick = () => {
-  //   window.location.href = "/booking";
-  // };
-
   const handleOnClick = () => {
-    window.location.href = lineUrl;
+    window.location.href = "/booking";
   };
+
+  // const handleOnClick = () => {
+  //   window.location.href = lineUrl;
+  // };
 
   return (
     <Box sx={{ bgcolor: '#243040' }}>

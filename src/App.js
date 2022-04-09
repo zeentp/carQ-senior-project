@@ -19,6 +19,9 @@ import HorizontalLinearStepper from './Page/booking';
 import { useSearchParams } from "react-router-dom";
 const theme = createTheme(
   {
+    typography: {
+      fontFamily: ["Anek Tamil", "sans-serif"].join(","),
+    },
 
   },
 
