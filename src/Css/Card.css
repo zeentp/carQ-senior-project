@@ -24,3 +24,12 @@
   justify-self: center;
   color: blue;
 }
+.responsive3 {
+  padding-top: 2px;
+  width: 100%;
+  height: auto; 
+  justify-self: center;
+  color: blue;
+  position: absolute;
+  object-fit: cover;
+}

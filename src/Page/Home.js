@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParams ,Link} from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import EditIcon from '@mui/icons-material/Edit';
 import CarImg from '../img/car-vector.png';
@@ -44,31 +44,59 @@ export default function Home() {
   return (
     <Box sx={{ bgcolor: '#243040' }}>
       <MainLayout>
-        <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3, bgcolor: "#1a2138", pb: 5 }}>
-          <Grid container spacing={2}>
-            <Container  >
-              <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
-                  <Grid sx={{ color: 'white' }} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
-                    <Typography variant="h2">Car-Q Services</Typography>
-                    <Typography sx={{ pb: 2 }} variant="h5">Reservation Online</Typography>
-                    <button onClick={handleOnClick} id="setEffectButton"> Booking </button>
-                  </Grid>
-                  <Grid  >
-                    <img
-                      sx={{ pt: 5 }}
-                      className='responsive'
-                      src={
-                        HomeImg
-                      }
-                    />
-                  </Grid>
-                </Stack>
-              </Grid>
-            </Container>
-          </Grid>
+        <Box
+        //  sx={{ position: 'relative' }}
+        >
+          {/* <video
+            max-width='1200px'
+            className='responsive3'
+            src="https://chriscourses.com/_nuxt/videos/galaxy.b6c8fb5.mp4"
+            loop="loop"
+            autoplay="autoplay"
+            playsinline
+            muted="muted"
+          >
+
+
+          </video> */}
+          {/* <Box sx={{ position: 'relative', zIndex: 10 }}>
+            <Typography sx={{ color: 'white' }} variant="h1">
+              Turbocharge your <br /><span
+              >development career
+              </span>
+            </Typography>
+            <p sx={{mt:30}}
+              // style="max-width: 449px; font-size: 20px; margin-top: 30px"
+            >
+              Gomin Pawantao provides website
+            </p>
+          </Box> */}
         </Box>
-        <Box display={'grid'} justifyContent={'center'} alignItems={'center'} sx={{ pt: 8, bgcolor: "#1a2138", pb: 15 }}>
+        <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3, bgcolor: "#1a2138", pb: 5 }}>
+            <Grid container spacing={2}>
+              <Container  >
+                <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
+                    <Grid sx={{ color: 'white'}} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
+                      <Typography variant="h2">Car-Q Services</Typography>
+                      <Typography sx={{ pb: 2 }} variant="h5">Reservation Online</Typography>
+                      <button onClick={handleOnClick} id="setEffectButton"> Booking </button>
+                    </Grid>
+                    <Grid  >
+                      <img
+                        sx={{ pt: 5 }}
+                        className='responsive'
+                        src={
+                          HomeImg
+                        }
+                      />
+                    </Grid>
+                  </Stack>
+                </Grid>
+              </Container>
+            </Grid>
+          </Box>
+        <Box display={'grid'} justifyContent={'center'} alignItems={'center'} sx={{ pt: 8, bgcolor: "#1a2138", pb: 15 ,position:'relative'}}>
           <Grid container spacing={2}>
             <Container >
               <Grid pl={{ xs: 2, md: 0, sm: 2 }} item xs={12} md={12} lg={12} spacing={2}>
@@ -125,7 +153,7 @@ export default function Home() {
             </Container>
           </Grid>
         </Box>
-        <Box display={'grid'} justifyContent={'center'} alignItems={'center'} sx={{ pt: 6, pb: 4, bgcolor: "#222b45" }}>
+        <Box display={'grid'} justifyContent={'center'} alignItems={'center'} sx={{ pt: 6, pb: 4, bgcolor: "#222b45" ,position:'relative'}}>
           <Grid container spacing={2}>
             <Container>
               <Grid pl={{ xs: 2, md: 0, sm: 2 }} item xs={12} md={12} lg={12} spacing={2}>

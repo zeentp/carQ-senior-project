@@ -465,7 +465,7 @@ const LinaerStepper = () => {
                 handleOpen()
             }
         } else {
-            if(activeStep === 0){
+            if(activeStep === 0 && data.bookingDate != ''){
                 getAvailableTime(data.bookingDate)
                 console.log('postDate')
                 

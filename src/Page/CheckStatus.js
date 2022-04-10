@@ -13,18 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { withStyles } from '@mui/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import LinearProgress from '@mui/material/LinearProgress';
-// const theme = createTheme({
-//     palette: {
-//       primary: {
-//         // Purple and green play nicely together.
-//         main: purple[500],
-//       },
-//       secondary: {
-//         // This is green.A700 as hex.
-//         main: '#11cb5f',
-//       },
-//     },
-//   });
+
 const StyleChip = withStyles({
     root: {
         backgroundColor: 'grey'
@@ -145,16 +134,15 @@ export default function CheckStatus() {
                 <Box justifyContent={'center'} display={'flex'} sx={{ pt: 0, pb: 3 }}>
                     <Grid spacing={2}>
                         <Box>
-                            <Grid pt={12} pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
-                                <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}  >
-                                    <Typography textAlign={'center'} variant="h2"  > Tracking</Typography>
-                                </Stack>
+                            <Grid pt={12} pl={{ xs: 0, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
+                                <Stack  textAlign={'center'}>
+                                    <Typography  variant="h2">Tracking</Typography>
                                 <Divider></Divider>
                                 <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 2, sm: 3 }} pt={3} >
                                     {/* <MainLayout isCard={true}> */}
                                     <Paper
                                         component="form"
-                                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 350, height: '70px' }}
+                                        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 320, height: '70px' }}
                                     >
                                         {/* <IconButton sx={{ p: '10px' }} type="submit" aria-label="menu">
                                         </IconButton> */}
@@ -169,7 +157,7 @@ export default function CheckStatus() {
                                                     // Do code here
                                                     handleSubmit()
                                                     ev.preventDefault();
-                                                }
+                                                }   
                                             }}
                                             sx={{ ml: 1, flex: 1 }}
                                             placeholder="Phone Number"
@@ -181,11 +169,11 @@ export default function CheckStatus() {
                                             sx={{ p: '10px' }}>
                                             <SearchIcon />
                                         </IconButton>
-                                        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                                        <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
-                                        </IconButton>
+                                        {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" /> */}
+                                  
                                     </Paper>
                                     {/* </MainLayout> */}
+                                    </Stack>
                                 </Stack>
                             </Grid>
                         </Box>

@@ -62,7 +62,7 @@ const AppBarClient = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
@@ -104,13 +104,13 @@ const AppBarClient = () => {
                   onClick={() => navigateToPage(page)}
                 // onClick={handleCloseNavMenu}
                 >
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography fontSize={17} textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="div"
             sx={{ display: { xs: 'flex', md: 'none' } }}
@@ -125,7 +125,9 @@ const AppBarClient = () => {
                 // onClick={handleCloseNavMenu()}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                  <Typography fontSize={17} textAlign="center">{page}</Typography>
+
+               
               </Button>
             ))}
           </Box>
