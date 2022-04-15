@@ -47,10 +47,9 @@ import {
     getTime,
     setTime
 
-  } from "../redux/TimeSlice";
-  import { useSelector, useDispatch } from "react-redux";
+} from "../redux/TimeSlice";
+import { useSelector, useDispatch } from "react-redux";
 
-const availableTime = []
 const useStyles = makeStyles((theme) => ({
     button: {
         marginRight: theme.spacing(1),
@@ -277,18 +276,18 @@ const ModalData = (bookingData, onStepChange) => {
                         Services
                     </Typography>
                     <Typography>
-                        {bookingData.data.issue}
+                        {/* {bookingData.data.service} */}
+                        {bookingData.data.service === 'etc' ? bookingData.data.etcService : bookingData.data.service}
                     </Typography>
                 </Box>
-                <Box
+                <Box className='typhograhpy'
                     sx={{ display: 'flex' }}
                 >
-                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+                    <Typography sx={{ flexGrow: 1, fontWeight: 'bold', wordWrap: "break-word" }}>
                         Description
-                    </Typography>
-                    <Typography>
-                        {bookingData.data.description}
-                    </Typography>
+                    </Typography >
+                    <Typography noWrap>
+                        {bookingData.data.description}</Typography>
                 </Box>
             </Box>
             {/* <Divider></Divider> */}
@@ -349,14 +348,14 @@ const PaymentForm = () => {
     );
 };
 
-function getStepContent(step) {
+function getStepContent(step, data, time) {
     switch (step) {
         case 0:
             return <DateForm />;
         case 1:
-            return <TimeForm data={availableTime} />;
+            return <TimeForm data={time} />;
         case 2:
-            return <BookingForm />;
+            return <BookingForm data={data} />;
         default:
             return "unknown step";
     }
@@ -371,7 +370,8 @@ const LinaerStepper = () => {
             firstName: "",
             lastName: "",
             emailAddress: "",
-            issue: "",
+            service: "",
+            etcService: "",
             // nickName: "",
             // phoneNumber: "",
             telephone: "",
@@ -388,7 +388,7 @@ const LinaerStepper = () => {
     });
     const [activeStep, setActiveStep] = useState(0);
     const [skippedSteps, setSkippedSteps] = useState([]);
-    // const [availableTime, setAvaliableTime] = useState([]);
+    const [availableTime, setAvaliableTime] = useState([]);
     const [open, setOpen] = React.useState(false);
     // const time = useSelector(getRole);
     const dispatch = useDispatch();
@@ -413,21 +413,26 @@ const LinaerStepper = () => {
         if (data.telephone.match(/^\d+$/) !== null && data.telephone.length === 10) {
             let dateToString = data.bookingDate.toString()
             let time = data.bookingDate.toTimeString();
-            let booking_date = new Date(dateToString.replace(time, data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
+            // let formatTime = data.bookingTime.
+            let booking_date = new Date(dateToString.replace(time, data.bookingTime.slice(0, 4) + ":00 GMT+0700 (Indochina Time)"));
             handleOpen()
-
+            if (data.service === 'etc') {
+                console.log(data.etcService)
+            }
             var body = {
                 appointment_id: appointment_id,
                 user_id: user_id,
                 plate_no: data.plateNumber,
                 brand: data.brand,
-                description: data.description,
+                description: data.service === 'etc' ? data.etcService : data.service,
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: data.emailAddress,
                 telephone: data.telephone,
                 // starts_at: data.bookingDate,
                 startAt: booking_date,
+                service: data.service === 'etc' ? data.etcService : data.service,
+
             };
             console.log(body)
             axios.post(url + "/a/createDetail", body).then((res) => {
@@ -443,15 +448,36 @@ const LinaerStepper = () => {
         // let booking_date = new Date(dateToString.replace(time, data.bookingTime + ":00 GMT+0700 (Indochina Time)"));
         console.log('postApi');
     }
-    const getAvailableTime =(date)=>{
-        // if (!personName.includes(id))
-        let a = ['12','34']
-        dispatch(setTime(a));
-        if (!availableTime.includes(a)){
-        availableTime.push('12:00')
-        availableTime.push('00:00')
-        availableTime.push('00:00')
+    async function getAvailableTime(date) {
+        // var clear = []
+        // dispatch(setTime(clear));
+
+        let text = date.toISOString();
+        let sliceStr = text.slice(0, 11)
+        let zero = ("00:00:00")
+        let result = sliceStr.concat(zero)
+        var body = {
+            reservedTime: result,
         }
+        let temp_data = []
+        console.log(result)
+        await axios.post(url + "/u/checkAvailableTime", body).then((res) => {
+            // console.log(res.data);
+            res.data.forEach(element => temp_data.push(element.period));
+            // dispatch(setTime(res));
+        });
+        // if (!personName.includes(id))
+        setTimeout(() => {
+            // setAvaliableTime(temp_data)
+            dispatch(setTime(temp_data));
+        }, 1000)
+        // setAvaliableTime(temp_data)
+
+        // if (!availableTime.includes(a)) {
+        //     availableTime.push('12:00')
+        //     availableTime.push('00:00')
+        //     availableTime.push('00:00')
+        // }
 
         // axios.post(url + "/u/checkAvailableDate",date).then((res) => {
         //     console.log(res.data);
@@ -465,11 +491,12 @@ const LinaerStepper = () => {
                 handleOpen()
             }
         } else {
-            if(activeStep === 0 && data.bookingDate != ''){
+            if (activeStep === 0 && data.bookingDate !== '') {
                 getAvailableTime(data.bookingDate)
+                console.log(data.bookingDate)
                 console.log('postDate')
-                
-                
+
+
             }
             if (data.bookingDate !== '') {
                 setActiveStep(activeStep + 1);
@@ -484,7 +511,9 @@ const LinaerStepper = () => {
     };
 
     const handleBack = () => {
+  
         setActiveStep(activeStep - 1);
+
     };
     const changeDate = () => {
         handleClose()
@@ -505,6 +534,7 @@ const LinaerStepper = () => {
     const [alertOpen, setAlertOpen] = React.useState(false);
 
     useEffect(() => {
+
         // availableTime = []   
         // console.log(holiday)
     }, [])
@@ -555,11 +585,11 @@ const LinaerStepper = () => {
                         sx={{ pt: 5 }}
                         className='responsive2'
                         src={
-                            'https://icons.iconarchive.com/icons/iconsmind/outline/512/Smile-icon.png'
+                            'https://media.istockphoto.com/vectors/blue-paper-speech-banner-with-word-thank-you-on-white-background-vector-id1165857016?k=20&m=1165857016&s=170667a&w=0&h=WhNTdyOS-XnNY8WU9qTl7gW0_XmTaE--Ony1N3vBPEc='
                         }
                     />
                     <Typography sx={{ pt: 2 }} variant="h3" align="center">
-                        Thank You
+                        For Your Reservation
                     </Typography>
                     {/* <Typography sx={{ pt: 0 }} variant="h5" align="center">
                         For Reservation ,please Await response from Admin
@@ -611,7 +641,7 @@ const LinaerStepper = () => {
                                                 </Link>
                                             </Stack>
                                         </Box>
-                                        <ModalData data={methods.getValues()}></ModalData>
+                                        <ModalData sx={{ overflow: 'scroll', }} data={methods.getValues()}></ModalData>
                                         <Container sx={{ display: 'flex', justifyContent: 'center', pt: 1 }}>
                                             <Button
                                                 className={classes.button}
@@ -640,7 +670,7 @@ const LinaerStepper = () => {
                                 </Modal>
                             </div>
                             <Box pt={8} >
-                                {getStepContent(activeStep)}
+                                {getStepContent(activeStep, methods.getValues(), availableTime)}
                             </Box>
                             <MainLayout iscard={true} >
                                 <Container sx={{ display: 'flex', justifyContent: 'center', pt: 6, pb: 6 }}>

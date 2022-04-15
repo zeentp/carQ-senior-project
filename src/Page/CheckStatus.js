@@ -207,7 +207,7 @@ export default function CheckStatus() {
                                                     />
                                                 }
                                             </Grid>
-                                            <Grid>
+                                            <Grid   >
                                                 <Typography>{a.name} </Typography>
                                             </Grid>
 

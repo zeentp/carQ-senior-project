@@ -73,30 +73,30 @@ export default function Home() {
           </Box> */}
         </Box>
         <Box display={'grid'} justifyContent={'center'} sx={{ pt: 3, bgcolor: "#1a2138", pb: 5 }}>
-            <Grid container spacing={2}>
-              <Container  >
-                <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
-                  <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
-                    <Grid sx={{ color: 'white'}} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
-                      <Typography variant="h2">Car-Q Services</Typography>
-                      <Typography sx={{ pb: 2 }} variant="h5">Reservation Online</Typography>
-                      <button onClick={handleOnClick} id="setEffectButton"> Booking </button>
-                    </Grid>
-                    <Grid  >
-                      <img
-                        sx={{ pt: 5 }}
-                        className='responsive'
-                        src={
-                          HomeImg
-                        }
-                      />
-                    </Grid>
-                  </Stack>
-                </Grid>
-              </Container>
-            </Grid>
-          </Box>
-        <Box display={'grid'} justifyContent={'center'} alignItems={'center'} sx={{ pt: 8, bgcolor: "#1a2138", pb: 15 ,position:'relative'}}>
+          <Grid container spacing={2}>
+            <Container  >
+              <Grid pl={{ xs: 2, md: 0, sm: 0 }} item xs={12} md={12} lg={12} spacing={2}>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 2, md: 8, sm: 3 }}>
+                  <Grid sx={{ color: 'white' }} textAlign={{ xs: 'center', sm: 'start' }} alignItems={{ xs: 'center', sm: 'start' }} direction={'column'} display={'flex'}>
+                    <Typography variant="h2">Car-Q Services</Typography>
+                    <Typography sx={{ pb: 2 }} variant="h5">Reservation Online</Typography>
+                    <button onClick={handleOnClick} id="setEffectButton"> Booking </button>
+                  </Grid>
+                  <Grid  >
+                    <img
+                      sx={{ pt: 5 }}
+                      className='responsive'
+                      src={
+                        HomeImg
+                      }
+                    />
+                  </Grid>
+                </Stack>
+              </Grid>
+            </Container>
+          </Grid>
+        </Box>
+        <Box display={'grid'} justifyContent={'center'} alignItems={'center'} sx={{ pt: 8, bgcolor: "#1a2138", pb: 15, position: 'relative' }}>
           <Grid container spacing={2}>
             <Container >
               <Grid pl={{ xs: 2, md: 0, sm: 2 }} item xs={12} md={12} lg={12} spacing={2}>
@@ -119,12 +119,13 @@ export default function Home() {
                   <Grid textAlign={{ xs: 'center', sm: 'center' }} alignItems={{ xs: 'center', sm: 'center' }} direction={'column'} display={'flex'}>
                     <CardActions>
                       <Avatar sx={{ width: 54, height: 54, bgcolor: '#223353' }}>
-                        <SpatialTrackingIcon sx={{ fontSize: 40, color: '#1a6ec3' }} />
+                        <NotificationsIcon sx={{ fontSize: 40, color: '#1a6ec3' }} />
                       </Avatar>
                     </CardActions>
+
                     <CardContent sx={{ color: 'white' }}>
                       <Typography variant="h5" component="div">
-                        Tracking
+                        Notification
                       </Typography>
                       <Typography fontSize={14} color={'#7b808b'} variant="h6" component="div">
                         Clients who book either online, or over the phone will receive confirmation of their booking via email. This confirmation is linked to the users I-phone or android phone calendar, enabling the user to schedule their booking straight to their phone calendar.
@@ -132,15 +133,14 @@ export default function Home() {
                     </CardContent>
                   </Grid>
                   <Grid textAlign={{ xs: 'center', sm: 'center' }} alignItems={{ xs: 'center', sm: 'center' }} direction={'column'} display={'flex'}>
-
                     <CardActions>
                       <Avatar sx={{ width: 54, height: 54, bgcolor: '#223353' }}>
-                        <NotificationsIcon sx={{ fontSize: 40, color: '#1a6ec3' }} />
+                        <SpatialTrackingIcon sx={{ fontSize: 40, color: '#1a6ec3' }} />
                       </Avatar>
                     </CardActions>
                     <CardContent sx={{ color: '#eeeeef' }}>
                       <Typography variant="h5" component="div">
-                        Notification
+                        Tracking
                       </Typography>
                       <Typography fontSize={14} color={'#7b808b'} variant="h6" component="div">
                         To stay in control of all client interaction, Auto Bookings Online is equip with the ability to remind clients of their service and registration due dates. This is done simply by logging reminder dates
@@ -153,7 +153,7 @@ export default function Home() {
             </Container>
           </Grid>
         </Box>
-        <Box display={'grid'} justifyContent={'center'} alignItems={'center'} sx={{ pt: 6, pb: 4, bgcolor: "#222b45" ,position:'relative'}}>
+        <Box display={'grid'} justifyContent={'center'} alignItems={'center'} sx={{ pt: 6, pb: 4, bgcolor: "#222b45", position: 'relative' }}>
           <Grid container spacing={2}>
             <Container>
               <Grid pl={{ xs: 2, md: 0, sm: 2 }} item xs={12} md={12} lg={12} spacing={2}>
@@ -168,15 +168,19 @@ export default function Home() {
                           component="img"
                           height="300"
                           width={300}
-                          image={CarImg}
+                          image={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuWpT3WPWRcn3tf2Gjg-I5FiVy2z_3A7BHeF0KkmA95UyPsmZ2bzbs-LeUaSMQkKo_O4k&usqp=CAU'}
                         // alt="green iguana"
                         />
                         <Typography sx={{ pt: 1 }} color={'white'} variant="h4">
-                          Admin side
+                          Contact Us
                         </Typography>
-                        <CardContent>
+                        <CardContent  >
+                          {/* <Typography sx={{wordWrap:'break-word'}} color={'#868687'} variant="h5" component="div">
+                            carq autorepair service 
+                          </Typography> */}
                           <Typography color={'#868687'} variant="h5" component="div">
-                            Webbee will make your product look modern and professional while saving you precious time.
+                            Telephone 080-000-0000 carq.service@gmail.com
+
                           </Typography>
                         </CardContent>
                       </Grid>
@@ -192,21 +196,22 @@ export default function Home() {
                           component="img"
                           height="300"
                           width={300}
-                          image={CarImg}
+                          image={'https://www.engdict.com/data/dict/media/images_public/locat-00038913_normal.png'}
                         // alt="green iguana"
                         />
                         <Typography sx={{ pt: 1 }} color={'white'} variant="h4">
-                          Admin side
+                          Location
                         </Typography>
                         <CardContent>
                           <Typography color={'#868687'} variant="h5" component="div">
-                            Webbee will make your product look modern and professional while saving you precious time.
+                            Open Time 8:00 AM - 18:00 PM
+                            270 Samakkee Rd, Tambon Tha Sai, Mueang Nonthaburi District, Nonthaburi 11000
                           </Typography>
                         </CardContent>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid textAlign={{ xs: 'center', sm: 'center' }} alignItems={{ xs: 'center', sm: 'center' }} direction={'column'} display={'flex'}>
+                  {/* <Grid textAlign={{ xs: 'center', sm: 'center' }} alignItems={{ xs: 'center', sm: 'center' }} direction={'column'} display={'flex'}>
                     <Grid className="card" item xs={12} md={6} component={Paper} elevation={8}
                       sx={{ pb: 2, bgcolor: '#2d364e' }}>
                       <Grid />
@@ -229,7 +234,7 @@ export default function Home() {
                         </CardContent>
                       </Grid>
                     </Grid>
-                  </Grid>
+                  </Grid> */}
                 </Stack>
               </Grid>
             </Container>
@@ -259,7 +264,7 @@ export default function Home() {
                         </Typography>
                         <CardContent>
                           <Typography color={'#868687'} variant="h5" component="div">
-                            Webbee will make your product look modern and professional while saving you precious time.
+                            Enable clients to book services and repairs online via our website.
                           </Typography>
                         </CardContent>
                       </Grid>

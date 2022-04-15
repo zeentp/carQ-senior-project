@@ -28,13 +28,10 @@ const theme = createTheme(
 );
 // http://localhost:3000/test?code=WnYuOlVZK17GtznWKht5iQ&state=68507f02-f49b-418e-bd59-32e9ac87a28f
 function App() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchParams2, setSearchParams2] = useSearchParams();
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const [searchParams2, setSearchParams2] = useSearchParams();
 
   useEffect(() => {
-    console.log(searchParams.get("code"))
-    console.log(searchParams2.get("state"))
-    console.log("/test?code=" + searchParams.get("code") + '&state=' +searchParams2.get("state"))
 
   }, [
   ]);
@@ -50,7 +47,7 @@ function App() {
           <Route path="/" element={<Home />} />
           {/* <Route path="booking" element={<Booking />} /> */}
           <Route path="home" element={<Home />} />
-          <Route path={"/test?code=" + searchParams.get("code") + '&state='+searchParams2.get("state")} element={<Test />} />
+          {/* <Route path={"/test?code=" + searchParams.get("code") + '&state='+searchParams2.get("state")} element={<Test />} /> */}
           <Route path="corousel" element={<Corousel />} />
           <Route path="checkStatus" element={<CheckStatus />} />
           <Route path="booking" element={<HorizontalLinearStepper />} />

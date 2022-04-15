@@ -20,6 +20,7 @@ import {
     FormControl,
     MenuItem,
     Select,
+    Autocomplete,
     InputLabel,
 } from "@mui/material";
 import {
@@ -30,14 +31,52 @@ import {
 } from "react-hook-form";
 import MainLayout from "../Component/MainLayout";
 import { te } from "date-fns/locale";
-const BookingForm = () => {
-
+import { method } from "lodash";
+const BookingForm = (data) => {
+    const { register, getValues } = useForm();
+    // const options = [
+    //     { value: "1111", label: "bananas" },
+    //     { value: "2222", label: "apples" },
+    //     { value: "3333", label: "nuts" },
+    //     { value: "4444", label: "strawberrys" }
+    //   ];
+    const brand_options =[
+        'Audi',
+        'BMW',
+        'Toyota',
+        'Yamaha',
+        'Chevrolet',
+        'Ford',
+        'Honda',
+        'Hyundai',
+        'Kia',
+        'Lexus',
+        'Mazda',
+        'Mercedes-Benz',
+        'Mitsubishi',
+        'Nissan',
+        'Subaru',
+        'Suzuki',
+        'Volkswagen',
+        'Volvo',
+        'Issuzu',
+    ]
+    const options = [
+        "ตรวจเช็คสภาพรถ",
+        "เปลี่ยนน้ำมันเครื่อง",
+        "ตั้งศูนย์ล้อ",
+        "เปลี่ยนยางรถยนต์",
+        "ซ่อมทั่วไปและอื่นๆ"
+    ];
     useEffect(() => {
-
+        // let data = getValues("firstName");
+        // console.log(control.getFieldState('firstName'))
+        console.log(data.data)
     }, [
     ]);
     const { control } = useFormContext();
     const [phoneNumber, setPhoneNumber] = React.useState("");
+    const [isEtc, setIsEtc] = React.useState("");
     const handlePhoneChange = (event) => {
         console.log(phoneNumber)
         var val = event.target.value.replace(/[^0-9]/g, "");
@@ -167,7 +206,34 @@ const BookingForm = () => {
                         </Grid>
                         <Grid pt={2} >
                             <Stack spacing={2}>
-                                <Controller
+                            <Controller
+                                    control={control}
+                                    name="brand"
+                                    // onChange={([event, data]) => {
+                                    //     return data && data.length ? data : [];
+                                    // }}
+                                    // render={({ field }) => (
+                                    render={({ field: { onChange, value } }) => (
+                                            <Autocomplete
+                                                options={brand_options}
+                                                onChange={(event, item) => {
+                                                    onChange(item);
+                                                }}
+                                                id="tags-outlined"
+                                                value={value}
+                                                filterSelectedOptions
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Car brands"
+                                                        placeholder="Car brands"
+                                                        required
+                                                    />
+                                                )}
+                                            />
+                                    )}
+                                />
+                                {/* <Controller
                                     control={control}
                                     name="brand"
                                     render={({ field }) => (
@@ -200,22 +266,89 @@ const BookingForm = () => {
                                                     <MenuItem value={"Mazda"}>Mazda</MenuItem>
                                                     <MenuItem value={"Mitsubishi"}>Mitsubishi</MenuItem>
                                                     <MenuItem value={"Volvo"}>Volvo</MenuItem>
-                                                    
+
                                                 </Select>
                                             </Box>
                                         </FormControl>
                                     )}
 
+                                /> */}
+                            </Stack>
+                            <Grid pt={2} >
+                                <Controller
+                                    control={control}
+                                    name="service"
+                                    onChange={([event, data]) => {
+                                        return data && data.length ? data : [];
+                                    }}
+                                    // render={({ field }) => (
+                                    render={({ field: { onChange, value } }) => (
+                                        <Box>
+                                            <Autocomplete
+                                                options={options}
+                                                onChange={(event, item) => {
+                                                    onChange(item);
+                                                }}
+                                                required
+                                                id="tags-outlined"
+                                                // options={produce}
+                                                // disableCloseOnSelect
+                                                // defaultValue={value}
+                                                value={value}
+                                                filterSelectedOptions
+                                                // getOptionLabel={options => options.label}
+                                                // {...field}
+                                                // onInputChange={(event, newInputValue) => {
+                                                //     setInputValue(newInputValue);
+                                                //   }}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Services"
+                                                        placeholder="Services"
+                                                        required
+                                                        // inputProps={{
+                                                        //     // required: value.length === 0
+                                                        //   }}
+                                                    />
+
+                                                )}
+
+                                            />
+                                            {value === 'ซ่อมทั่วไปและอื่นๆ' ?
+                                                <Grid pt={2} >
+                                                    <Controller
+                                                        control={control}
+                                                        name="etcService"
+                                                        render={({ field }) => (
+                                                            <TextField
+                                                                required
+                                                                fullWidth
+                                                                multiline
+                                                                value={field.value}
+                                                                id="description"
+                                                                label="Etc"
+                                                                variant="outlined"
+                                                                placeholder="Enter Your Etc Service"
+                                                                {...field}
+                                                            />
+
+                                                        )}
+
+                                                    />
+                                                </Grid>
+                                                : null}
+                                        </Box>
+
+                                    )}
                                 />
 
-
-                            </Stack>
-
-                            <Grid pt={2} >
+                            </Grid>
+                            {/* <Grid pt={2} >
                                 <Stack>
                                     <Controller
                                         control={control}
-                                        name="issue"
+                                        name="service"
                                         render={({ field }) => (
                                             <FormControl>
                                                 <Box>
@@ -231,7 +364,7 @@ const BookingForm = () => {
                                                         id="demo-simple-select"
                                                         // value={carbrand}
                                                         defaultValue={field.value}
-                                                        label="Issue"
+                                                        label="service"
                                                         {...field}
                                                         value={field.value}
                                                     // onChange={(e) => setCarBrand(e.target.value)}
@@ -240,14 +373,58 @@ const BookingForm = () => {
                                                         <MenuItem value={"แอร์ไม่เย็น"}>แอร์ไม่เย็น</MenuItem>
                                                         <MenuItem value={"เช็คสภาพรถ"}>เช็คสภาพรถ</MenuItem>
                                                         <MenuItem value={"สตารต์ไม่ติด"}>สตารต์ไม่ติด</MenuItem>
+                                                        <MenuItem value={"etc"}>อื่นๆ</MenuItem>
                                                     </Select>
+                                                    {field.value === 'etc' ?
+                                                        <Grid pt={2} >
+                                                            <Controller
+                                                                control={control}
+                                                                name="etcService"
+                                                                render={({ field }) => (
+                                                                    <TextField
+                                                                        required
+                                                                        fullWidth
+                                                                        multiline
+                                                                        value={field.value}
+                                                                        id="description"
+                                                                        label="Etc"
+                                                                        variant="outlined"
+                                                                        placeholder="Enter Your Etc Service"
+                                                                        {...field}
+                                                                    />
+
+                                                                )}
+
+                                                            />
+                                                        </Grid>
+                                                        : null}
                                                 </Box>
                                             </FormControl>
                                         )}
-
                                     />
+                                    {data.data.service === "eee" ?
+                                        <Grid pt={2} >
+                                            <Controller
+                                                control={control}
+                                                name="etcService"
+                                                render={({ field }) => (
+                                                    <TextField
+                                                        required
+                                                        fullWidth
+                                                        multiline
+                                                        value={field.value}
+                                                        id="description"
+                                                        label="Etc"
+                                                        variant="outlined"
+                                                        placeholder="Enter Your description"
+                                                        {...field}
+                                                    />
+                                                )}
+                                            />
+                                        </Grid>
+                                        : null}
                                 </Stack>
-                            </Grid>
+                            </Grid> */}
                             <Grid pt={2} >
                                 <Controller
                                     control={control}

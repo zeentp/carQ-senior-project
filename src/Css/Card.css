@@ -11,6 +11,9 @@
   background-color: #424a60;
 }
 
+.typhograhpy {
+  word-wrap: break-word;
+}
 .responsive {
   width: 100%;
   max-width: 500px;
@@ -19,7 +22,7 @@
 .responsive2 {
   padding-top: 2px;
   width: 100%;
-  max-width: 150px;
+  max-width: 400px;
   height: auto; 
   justify-self: center;
   color: blue;

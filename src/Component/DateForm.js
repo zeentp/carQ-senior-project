@@ -4,6 +4,8 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import InputMask from "react-input-mask";
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import { URL as url } from '../Constants';
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
 import {
     Typography,
     TextField,
@@ -36,6 +38,7 @@ const DateForm = () => {
     const axios = require("axios");
     const [disabledDate, setDisabledDate] = React.useState([]);
     const [isEmpty, setIsEmpty] = React.useState(true);
+    const [isLoading, setIsLoading] = React.useState(true);
     const { control } = useFormContext();
 
 
@@ -56,6 +59,7 @@ const DateForm = () => {
     }
     const getDisabledDate = () => {
         axios.get(url + "/u/checkAvailableDate").then((res) => {
+            setIsLoading(false)
             console.log(res.data);
             const list = res.data.map((d) => d);
             setDisabledDate(list)
@@ -63,19 +67,18 @@ const DateForm = () => {
     }
     function disableWeekends(date) {
         const data = [
-            new Date('2022-04-04T00:00').getTime(),
-            new Date('2022-04-05T00:00').getTime(),
-            new Date('2022-04-28T00:00').getTime(),
             new Date('2022-04-12T00:00').getTime(),
         ]
         // 2022-04-13T03:00:00Z
         const temp = []
         disabledDate.map((i) => {
+            // console.log(i)
              let a = i.slice(0,11)       
              let zero = ("00:00")     
              let result = a.concat(zero)
             //  console.log(result)
             // let a = i.replaceAt(11,"00:00")
+            // console.log(result)
             temp.push(new Date(result).getTime())
         })
         // console.log(temp)
@@ -83,13 +86,14 @@ const DateForm = () => {
 
 
         const d = new Date('2022-04-06T00:00')
-        return date.getDay() === 0 || date.getDay() === 6 || temp.includes(date.getTime())
+        return date.getDay() === 0 || date.getDay() === 6 || temp.includes(date.getTime()) || data.includes(date.getTime())
 
     }
 
     return (
         <>
             <MainLayout isCard={true} >
+            {isLoading && <LinearProgress />}
                 <Controller
                     control={control}
                     name="bookingDate"
